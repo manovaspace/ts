@@ -1,0 +1,25 @@
+packages:
+  - packages/*
+
+allowBuilds:
+  "@sentry/cli": true
+  "@swc/core": true
+  esbuild: true
+  sharp: true
+
+catalog:
+  react: ^19.2.7
+  react-dom: ^19.2.7
+  typescript: ^6.0.3
+  next: ^16.2.10
+  "@types/react": ^19.2.17
+  "@types/react-dom": ^19.2.3
+  "@types/node": ^26.1.0
+  "@biomejs/biome": ^2.5.2
+  tsup: ^8.5.1
+  vitest: ^3.2.6
+  "@serwist/turbopack": ^9.5.11
+  serwist: ^9.5.11
+  react-markdown: ^10.1.0
+  remark-gfm: ^4.0.1
+  "@sentry/nextjs": ^9.0.0
