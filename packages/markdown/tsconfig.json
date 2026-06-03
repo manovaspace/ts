@@ -1,0 +1,4 @@
+{
+  "extends": "@manovaspace/tsconfig/react-library.json",
+  "include": ["src"]
+}

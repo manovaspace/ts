@@ -1,0 +1,51 @@
+{
+  "name": "@manovaspace/observability",
+  "version": "0.1.0",
+  "description": "Next.js Sentry instrumentation helpers",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/observability"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "development": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./next": {
+      "types": "./dist/next/instrumentation.d.ts",
+      "import": "./dist/next/instrumentation.js"
+    }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@sentry/nextjs": "catalog:",
+    "next": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@sentry/nextjs": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@manovaspace/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
