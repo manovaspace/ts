@@ -1,0 +1,67 @@
+{
+  "name": "@manovaspace/pwa",
+  "version": "1.0.0",
+  "description": "Next.js PWA helpers (Serwist + web app manifest)",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": ["./dist/sw/default.js"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/pwa"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./next": {
+      "types": "./dist/next/index.d.ts",
+      "import": "./dist/next/index.js",
+      "default": "./dist/next/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/serwist-shell.d.ts",
+      "import": "./dist/react/serwist-shell.js",
+      "default": "./dist/react/serwist-shell.js"
+    },
+    "./sw": {
+      "types": "./dist/sw/default.d.ts",
+      "import": "./dist/sw/default.js",
+      "default": "./dist/sw/default.js"
+    }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "dependencies": {
+    "@serwist/turbopack": "catalog:",
+    "serwist": "catalog:"
+  },
+  "devDependencies": {
+    "@manovaspace/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
