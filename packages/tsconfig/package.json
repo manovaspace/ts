@@ -1,0 +1,23 @@
+{
+  "name": "@manovaspace/tsconfig",
+  "version": "0.1.0",
+  "description": "Shared TypeScript compiler presets for Manova open commons",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/tsconfig"
+  },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://github.com/manovaspace/ts/tree/main/packages/tsconfig#readme",
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "react-library.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
