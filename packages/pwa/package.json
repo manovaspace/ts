@@ -1,15 +1,28 @@
 {
   "name": "@manovaspace/pwa",
   "version": "1.0.0",
-  "description": "Next.js PWA helpers (Serwist + web app manifest)",
+  "description": "Serwist and web app manifest helpers for Next.js progressive web apps",
   "license": "MIT",
   "type": "module",
   "sideEffects": ["./dist/sw/default.js"],
+  "keywords": [
+    "pwa",
+    "serwist",
+    "nextjs",
+    "service-worker",
+    "web-app-manifest",
+    "offline",
+    "progressive-web-app"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manovaspace/ts.git",
     "directory": "packages/pwa"
   },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://github.com/manovaspace/ts/tree/main/packages/pwa#readme",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

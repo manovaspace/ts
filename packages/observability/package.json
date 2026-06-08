@@ -1,15 +1,27 @@
 {
   "name": "@manovaspace/observability",
   "version": "0.1.0",
-  "description": "Next.js Sentry instrumentation helpers",
+  "description": "Next.js instrumentation helpers for Sentry and optional OpenTelemetry",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "keywords": [
+    "observability",
+    "sentry",
+    "nextjs",
+    "instrumentation",
+    "opentelemetry",
+    "monitoring"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manovaspace/ts.git",
     "directory": "packages/observability"
   },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://github.com/manovaspace/ts/tree/main/packages/observability#readme",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

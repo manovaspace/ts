@@ -1,8 +1,17 @@
 {
   "name": "@manovaspace/tsconfig",
   "version": "0.1.0",
-  "description": "Shared TypeScript compiler presets for Manova open commons",
+  "description": "Strict shared TypeScript presets for Next.js apps and React libraries",
   "license": "MIT",
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "nextjs",
+    "react",
+    "strict",
+    "compiler",
+    "presets"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manovaspace/ts.git",
