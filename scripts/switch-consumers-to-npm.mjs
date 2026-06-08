@@ -1,0 +1,55 @@
+import { readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const workspaceRoot = join(root, "..", "..");
+
+const versions = {
+  "@manovaspace/tsconfig": JSON.parse(
+    readFileSync(join(root, "packages/tsconfig/package.json"), "utf8"),
+  ).version,
+  "@manovaspace/markdown": JSON.parse(
+    readFileSync(join(root, "packages/markdown/package.json"), "utf8"),
+  ).version,
+  "@manovaspace/pwa": JSON.parse(
+    readFileSync(join(root, "packages/pwa/package.json"), "utf8"),
+  ).version,
+  "@manovaspace/observability": JSON.parse(
+    readFileSync(join(root, "packages/observability/package.json"), "utf8"),
+  ).version,
+};
+
+const packageJsonPaths = [
+  "orbit/orbit-frontend/apps/template/package.json",
+  "orbit/orbit-frontend/apps/storybook/package.json",
+  "orbit/orbit-frontend/packages/ui/package.json",
+  "orbit/orbit-frontend/packages/tokens/package.json",
+  "orbit/orbit-frontend/packages/data/package.json",
+  "orbit/orbit-frontend/packages/devtools/package.json",
+  "clients/kaazhe/frontend/package.json",
+  "clients/jtash/frontend/package.json",
+  "clients/manova/waypoint/package.json",
+  "clients/manova/manova-frontend/package.json",
+];
+
+const linkRe = /^link:.*manovaspace\/ts\/packages\/(tsconfig|markdown|pwa|observability)$/;
+
+for (const rel of packageJsonPaths) {
+  const path = join(workspaceRoot, rel);
+  const pkg = JSON.parse(readFileSync(path, "utf8"));
+
+  for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
+    const deps = pkg[section];
+    if (!deps) continue;
+
+    for (const [name, spec] of Object.entries(deps)) {
+      if (!name.startsWith("@manovaspace/")) continue;
+      if (typeof spec !== "string" || !linkRe.test(spec)) continue;
+      deps[name] = `^${versions[name]}`;
+      console.log(`${rel}: ${section}.${name} → ^${versions[name]}`);
+    }
+  }
+
+  writeFileSync(path, `${JSON.stringify(pkg, null, 2)}\n`);
+}
