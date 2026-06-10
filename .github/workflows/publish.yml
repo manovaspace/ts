@@ -31,6 +31,3 @@ jobs:
       - run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
       - run: pnpm release
-        env:
-          # Optional fallback until npm trusted publishing is configured per package.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
