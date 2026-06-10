@@ -24,4 +24,4 @@ Read [RELEASING.md](./RELEASING.md). Flow matches proprietary `orbit-frontend`: 
 
 ## Future triggers (agents)
 
-**Before planning or implementing**, read [FUTURE-TRIGGERS.md](./FUTURE-TRIGGERS.md). If any trigger condition matches the current repo, notify the user in a **Future triggers fired** section. Remind only — do not build unless asked.
+Read workspace root [`FUTURE-TRIGGERS.md`](../../FUTURE-TRIGGERS.md) (Manova folder — canonical). Public stub: [FUTURE-TRIGGERS.md](./FUTURE-TRIGGERS.md). Notify user when triggers fire; remind only unless asked.

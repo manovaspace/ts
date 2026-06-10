@@ -1,8 +1,11 @@
 # manovaspace/ts
 
 [![CI](https://github.com/manovaspace/ts/actions/workflows/ci.yml/badge.svg)](https://github.com/manovaspace/ts/actions/workflows/ci.yml)
+[![Docs](https://github.com/manovaspace/ts/actions/workflows/docs.yml/badge.svg)](https://manovaspace.github.io/ts/)
 
 MIT TypeScript open commons. Published on npm as [`@manovaspace/*`](https://www.npmjs.com/org/manovaspace).
+
+**Documentation:** [manovaspace.github.io/ts](https://manovaspace.github.io/ts/)
 
 Generic libraries extracted from proprietary Orbit tooling — reusable without the `@orbit` platform.
 
