@@ -1,0 +1,67 @@
+---
+title: "@manovaspace/pwa"
+description: Serwist and web app manifest helpers for Next.js progressive web apps.
+---
+
+# @manovaspace/pwa
+
+Serwist and web app manifest helpers for Next.js PWAs — manifest metadata, theme colors, service worker wiring, and a production-only `SerwistShell` provider.
+
+## Install
+
+```bash
+pnpm add @manovaspace/pwa
+```
+
+Peer dependencies: `next`, `react`, `react-dom`.
+
+## Quick start
+
+**`next.config.ts`**
+
+```ts
+import { withSerwist } from "@manovaspace/pwa/next";
+import type { NextConfig } from "next";
+
+export default withSerwist({
+  transpilePackages: ["@manovaspace/pwa"],
+});
+```
+
+**`app/manifest.ts`**
+
+```ts
+import { defineWebAppManifest } from "@manovaspace/pwa";
+
+export default defineWebAppManifest({
+  name: "My App",
+  shortName: "App",
+  startUrl: "/",
+  themeColors: { light: "#ffffff", dark: "#0a0a0a" },
+});
+```
+
+**`app/layout.tsx`**
+
+```tsx
+import { SerwistShell } from "@manovaspace/pwa/react";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <SerwistShell>{children}</SerwistShell>
+      </body>
+    </html>
+  );
+}
+```
+
+## Subpath exports
+
+| Import | Purpose |
+| --- | --- |
+| `@manovaspace/pwa` | Manifest + metadata helpers, color types |
+| `@manovaspace/pwa/next` | `withSerwist` Next.js config wrapper |
+| `@manovaspace/pwa/react` | `SerwistShell` client provider |
+| `@manovaspace/pwa/sw` | Default service worker entry |
