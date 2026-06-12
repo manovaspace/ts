@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/pwa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Serwist and web app manifest helpers for Next.js progressive web apps",
   "license": "MIT",
   "type": "module",
@@ -22,8 +22,9 @@
   "bugs": {
     "url": "https://github.com/manovaspace/ts/issues"
   },
-  "homepage": "https://github.com/manovaspace/ts/tree/main/packages/pwa#readme",
+  "homepage": "https://manovaspace.github.io/ts/packages/pwa/",
   "scripts": {
+    "prepublishOnly": "node ../../scripts/assert-publishable-deps.mjs",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
@@ -57,13 +58,13 @@
     "access": "public"
   },
   "peerDependencies": {
-    "next": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "next": "^16.2.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@serwist/turbopack": "catalog:",
-    "serwist": "catalog:"
+    "@serwist/turbopack": "^9.5.11",
+    "serwist": "^9.5.11"
   },
   "devDependencies": {
     "@manovaspace/tsconfig": "workspace:*",
