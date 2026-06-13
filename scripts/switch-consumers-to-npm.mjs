@@ -44,10 +44,14 @@ for (const rel of packageJsonPaths) {
     if (!deps) continue;
 
     for (const [name, spec] of Object.entries(deps)) {
-      if (!name.startsWith("@manovaspace/")) continue;
-      if (typeof spec !== "string" || !linkRe.test(spec)) continue;
-      deps[name] = `^${versions[name]}`;
-      console.log(`${rel}: ${section}.${name} → ^${versions[name]}`);
+      if (!name.startsWith("@manovaspace/") || !(name in versions)) continue;
+      if (typeof spec !== "string") continue;
+      const next = `^${versions[name]}`;
+      if (spec === next) continue;
+      if (linkRe.test(spec) || spec.startsWith("^")) {
+        deps[name] = next;
+        console.log(`${rel}: ${section}.${name} → ${next}`);
+      }
     }
   }
 
