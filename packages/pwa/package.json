@@ -1,10 +1,12 @@
 {
   "name": "@manovaspace/pwa",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Serwist and web app manifest helpers for Next.js progressive web apps",
   "license": "MIT",
   "type": "module",
-  "sideEffects": ["./dist/sw/default.js"],
+  "sideEffects": [
+    "./dist/sw/default.js"
+  ],
   "keywords": [
     "pwa",
     "serwist",
@@ -53,7 +55,9 @@
       "default": "./dist/sw/default.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
