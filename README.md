@@ -17,6 +17,9 @@ Generic libraries extracted from proprietary Orbit tooling — reusable without 
 | [`@manovaspace/markdown`](https://www.npmjs.com/package/@manovaspace/markdown) | Lightweight GFM markdown renderer for React and Next.js |
 | [`@manovaspace/pwa`](https://www.npmjs.com/package/@manovaspace/pwa) | Serwist and web app manifest helpers for Next.js PWAs |
 | [`@manovaspace/observability`](https://www.npmjs.com/package/@manovaspace/observability) | Next.js instrumentation helpers for Sentry and optional OpenTelemetry |
+| [`@manovaspace/tokens`](https://www.npmjs.com/package/@manovaspace/tokens) | Design tokens — JSON, CSS variables, and font assets |
+| [`@manovaspace/ui`](https://www.npmjs.com/package/@manovaspace/ui) | Radix/Tailwind component primitives, motion, and icons |
+| [`@manovaspace/devtools`](https://www.npmjs.com/package/@manovaspace/devtools) | Dev-only design system toolbar for Next.js apps |
 
 ## Development
 
