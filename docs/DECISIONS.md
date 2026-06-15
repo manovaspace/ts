@@ -14,6 +14,8 @@
 - Starlight: professional OSS defaults, search, low maintenance vs Next/Fumadocs for four small packages
 - Project Pages first: ships with the monorepo; org site comes when `manovaspace/go` exists
 
+Full generator comparison and migration triggers: Manova workspace [`docs/manovaspace/DOCUMENTATION-SITE.md`](../../../docs/manovaspace/DOCUMENTATION-SITE.md) *(staff planning doc — not published to Pages)*.
+
 ## Implementation
 
 See [DOCUMENTATION-SITE.md](./DOCUMENTATION-SITE.md) for Phases A–C.
