@@ -12,6 +12,9 @@ const packages = [
     filter: "@manovaspace/observability",
     marker: "packages/observability/dist/index.js",
   },
+  { filter: "@manovaspace/tokens", marker: "packages/tokens/dist/tokens.css" },
+  { filter: "@manovaspace/ui", marker: "packages/ui/dist/index.js" },
+  { filter: "@manovaspace/devtools", marker: "packages/devtools/dist/index.js" },
 ];
 
 const missing = packages.filter(({ marker }) => !existsSync(join(root, marker)));

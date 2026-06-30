@@ -11,7 +11,10 @@ for pkg in \
   @manovaspace/tsconfig \
   @manovaspace/markdown \
   @manovaspace/pwa \
-  @manovaspace/observability
+  @manovaspace/observability \
+  @manovaspace/tokens \
+  @manovaspace/ui \
+  @manovaspace/devtools
 do
   echo "==> npm trust github $pkg"
   npm trust github "$pkg" \
@@ -23,6 +26,6 @@ do
 done
 
 echo "Done. Verify:"
-for pkg in @manovaspace/tsconfig @manovaspace/markdown @manovaspace/pwa @manovaspace/observability; do
+for pkg in @manovaspace/tsconfig @manovaspace/markdown @manovaspace/pwa @manovaspace/observability @manovaspace/tokens @manovaspace/ui @manovaspace/devtools; do
   npm trust list "$pkg" --registry="$REGISTRY" 2>/dev/null || true
 done

@@ -4,69 +4,69 @@ import { fileURLToPath } from "node:url";
 
 const workspaceRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
+const ms = (pkg) => `link:../../../manovaspace/ts/packages/${pkg}`;
+const msFromOrbitApp = (pkg) =>
+  `link:../../../../manovaspace/ts/packages/${pkg}`;
+
 const targets = [
   {
     path: "orbit/orbit-frontend/apps/template/package.json",
     links: {
-      "@manovaspace/observability": "link:../../../../manovaspace/ts/packages/observability",
-      "@manovaspace/pwa": "link:../../../../manovaspace/ts/packages/pwa",
-      "@manovaspace/tsconfig": "link:../../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/observability": msFromOrbitApp("observability"),
+      "@manovaspace/pwa": msFromOrbitApp("pwa"),
+      "@manovaspace/tsconfig": msFromOrbitApp("tsconfig"),
+      "@manovaspace/tokens": msFromOrbitApp("tokens"),
+      "@manovaspace/ui": msFromOrbitApp("ui"),
+      "@manovaspace/devtools": msFromOrbitApp("devtools"),
     },
   },
   {
     path: "orbit/orbit-frontend/apps/storybook/package.json",
     links: {
-      "@manovaspace/tsconfig": "link:../../../../manovaspace/ts/packages/tsconfig",
-    },
-  },
-  {
-    path: "orbit/orbit-frontend/packages/ui/package.json",
-    links: {
-      "@manovaspace/tsconfig": "link:../../../../manovaspace/ts/packages/tsconfig",
-    },
-  },
-  {
-    path: "orbit/orbit-frontend/packages/tokens/package.json",
-    links: {
-      "@manovaspace/tsconfig": "link:../../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/tsconfig": msFromOrbitApp("tsconfig"),
+      "@manovaspace/tokens": msFromOrbitApp("tokens"),
+      "@manovaspace/ui": msFromOrbitApp("ui"),
+      "@manovaspace/devtools": msFromOrbitApp("devtools"),
     },
   },
   {
     path: "orbit/orbit-frontend/packages/data/package.json",
     links: {
-      "@manovaspace/tsconfig": "link:../../../../manovaspace/ts/packages/tsconfig",
-    },
-  },
-  {
-    path: "orbit/orbit-frontend/packages/devtools/package.json",
-    links: {
-      "@manovaspace/tsconfig": "link:../../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/tsconfig": msFromOrbitApp("tsconfig"),
     },
   },
   {
     path: "clients/kaazhe/frontend/package.json",
     links: {
-      "@manovaspace/pwa": "link:../../../manovaspace/ts/packages/pwa",
-      "@manovaspace/tsconfig": "link:../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/pwa": ms("pwa"),
+      "@manovaspace/tsconfig": ms("tsconfig"),
+      "@manovaspace/tokens": ms("tokens"),
+      "@manovaspace/ui": ms("ui"),
     },
   },
   {
     path: "clients/jtash/frontend/package.json",
     links: {
-      "@manovaspace/markdown": "link:../../../manovaspace/ts/packages/markdown",
-      "@manovaspace/tsconfig": "link:../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/markdown": ms("markdown"),
+      "@manovaspace/tsconfig": ms("tsconfig"),
+      "@manovaspace/tokens": ms("tokens"),
+      "@manovaspace/ui": ms("ui"),
     },
   },
   {
     path: "clients/manova/waypoint/package.json",
     links: {
-      "@manovaspace/tsconfig": "link:../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/tsconfig": ms("tsconfig"),
+      "@manovaspace/tokens": ms("tokens"),
+      "@manovaspace/ui": ms("ui"),
     },
   },
   {
     path: "clients/manova/manova-frontend/package.json",
     links: {
-      "@manovaspace/tsconfig": "link:../../../manovaspace/ts/packages/tsconfig",
+      "@manovaspace/tsconfig": ms("tsconfig"),
+      "@manovaspace/tokens": ms("tokens"),
+      "@manovaspace/ui": ms("ui"),
     },
   },
 ];
