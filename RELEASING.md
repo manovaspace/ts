@@ -71,6 +71,16 @@ For local co-development before publish, revert with `scripts/switch-consumers-t
 2. Prefer **`pnpm release`** from the monorepo root — resolves `catalog:` and `workspace:*` before publish. Raw `npm publish` per package works only if `dependencies` / `peerDependencies` use real semver ranges (not `catalog:`).
 
 3. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) per package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`) — avoids long-lived `NPM_TOKEN`
+
+   **New package names** (`tokens`, `ui`, `devtools`, …): npm requires a **first publish with 2FA** before `npm trust github` works. Order:
+
+   ```bash
+   pnpm build && pnpm release          # browser 2FA — creates the package on npmjs.org
+   ./scripts/configure-trusted-publishing.sh   # then OIDC per package
+   ```
+
+   Re-running the trust script is safe: it skips packages already configured (409) and packages not yet on npm.
+
 4. Optional: `gh secret set NPM_TOKEN --repo manovaspace/ts` as fallback
 
 ## CI authentication
