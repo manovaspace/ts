@@ -21,6 +21,11 @@ export default defineConfig({
 				},
 				{
 					icon: "external",
+					label: "Design system",
+					href: "https://manovaspace.github.io/design-system/",
+				},
+				{
+					icon: "external",
 					label: "npm",
 					href: "https://www.npmjs.com/org/manovaspace",
 				},
@@ -37,9 +42,15 @@ export default defineConfig({
 							label: "observability",
 							slug: "packages/observability",
 						},
-						{ label: "tokens", slug: "packages/tokens" },
-						{ label: "ui", slug: "packages/ui" },
-						{ label: "devtools", slug: "packages/devtools" },
+					],
+				},
+				{
+					label: "Design system",
+					items: [
+						{
+							label: "tokens, ui, devtools",
+							link: "https://manovaspace.github.io/design-system/",
+						},
 					],
 				},
 				{ label: "Contributing", slug: "contributing" },
