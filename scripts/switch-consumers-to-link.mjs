@@ -15,18 +15,6 @@ const targets = [
       "@manovaspace/observability": msFromOrbitApp("observability"),
       "@manovaspace/pwa": msFromOrbitApp("pwa"),
       "@manovaspace/tsconfig": msFromOrbitApp("tsconfig"),
-      "@manovaspace/tokens": msFromOrbitApp("tokens"),
-      "@manovaspace/ui": msFromOrbitApp("ui"),
-      "@manovaspace/devtools": msFromOrbitApp("devtools"),
-    },
-  },
-  {
-    path: "orbit/orbit-frontend/apps/storybook/package.json",
-    links: {
-      "@manovaspace/tsconfig": msFromOrbitApp("tsconfig"),
-      "@manovaspace/tokens": msFromOrbitApp("tokens"),
-      "@manovaspace/ui": msFromOrbitApp("ui"),
-      "@manovaspace/devtools": msFromOrbitApp("devtools"),
     },
   },
   {
@@ -40,8 +28,6 @@ const targets = [
     links: {
       "@manovaspace/pwa": ms("pwa"),
       "@manovaspace/tsconfig": ms("tsconfig"),
-      "@manovaspace/tokens": ms("tokens"),
-      "@manovaspace/ui": ms("ui"),
     },
   },
   {
@@ -49,24 +35,18 @@ const targets = [
     links: {
       "@manovaspace/markdown": ms("markdown"),
       "@manovaspace/tsconfig": ms("tsconfig"),
-      "@manovaspace/tokens": ms("tokens"),
-      "@manovaspace/ui": ms("ui"),
     },
   },
   {
     path: "clients/manova/waypoint/package.json",
     links: {
       "@manovaspace/tsconfig": ms("tsconfig"),
-      "@manovaspace/tokens": ms("tokens"),
-      "@manovaspace/ui": ms("ui"),
     },
   },
   {
     path: "clients/manova/manova-frontend/package.json",
     links: {
       "@manovaspace/tsconfig": ms("tsconfig"),
-      "@manovaspace/tokens": ms("tokens"),
-      "@manovaspace/ui": ms("ui"),
     },
   },
 ];
