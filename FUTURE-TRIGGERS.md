@@ -10,7 +10,7 @@ This stub lists **manovaspace** triggers for GitHub contributors. Agents working
 | --- | --- | --- |
 | MS-FT-001 | `@manovaspace/build` shared tooling | deferred |
 | MS-FT-002 | Changesets lockstep | deferred |
-| MS-FT-003 | npm trusted publishing (OIDC) | in_progress |
+| MS-FT-003 | npm trusted publishing (OIDC) | done |
 | MS-FT-004 | GitHub Pages docs site | done |
 | MS-FT-005 | `manovaspace/go` repo | deferred |
 | MS-FT-006 | Consumer semver pins | done |
