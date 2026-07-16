@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/tsconfig",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Strict shared TypeScript presets for Next.js apps and React libraries",
   "license": "MIT",
   "keywords": [
