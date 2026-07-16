@@ -1,52 +1,30 @@
 # manovaspace/ts
 
 [![CI](https://github.com/manovaspace/ts/actions/workflows/ci.yml/badge.svg)](https://github.com/manovaspace/ts/actions/workflows/ci.yml)
-[![Docs](https://github.com/manovaspace/ts/actions/workflows/docs.yml/badge.svg)](https://manovaspace.github.io/ts/)
 
-MIT TypeScript open commons. Published on npm as [`@manovaspace/*`](https://www.npmjs.com/org/manovaspace).
+MIT TypeScript utilities published on npm as [`@manovaspace/*`](https://www.npmjs.com/org/manovaspace).
 
-**Documentation:** [manovaspace.github.io/ts](https://manovaspace.github.io/ts/)
-
-Generic libraries extracted from proprietary Orbit tooling — reusable without the `@orbit` platform.
+**Documentation:** [manovaspace.github.io/docs/utilities](https://manovaspace.github.io/docs/utilities/)
 
 ## Packages
 
-| npm | Description |
+| npm | Docs |
 | --- | --- |
-| [`@manovaspace/tsconfig`](https://www.npmjs.com/package/@manovaspace/tsconfig) | Strict shared TypeScript presets for Next.js apps and React libraries |
-| [`@manovaspace/markdown`](https://www.npmjs.com/package/@manovaspace/markdown) | Lightweight GFM markdown renderer for React and Next.js |
-| [`@manovaspace/pwa`](https://www.npmjs.com/package/@manovaspace/pwa) | Serwist and web app manifest helpers for Next.js PWAs |
-| [`@manovaspace/observability`](https://www.npmjs.com/package/@manovaspace/observability) | Next.js instrumentation helpers for Sentry and optional OpenTelemetry |
+| `@manovaspace/tsconfig` | [docs](https://manovaspace.github.io/docs/utilities/packages/tsconfig/) |
+| `@manovaspace/markdown` | [docs](https://manovaspace.github.io/docs/utilities/packages/markdown/) |
+| `@manovaspace/pwa` | [docs](https://manovaspace.github.io/docs/utilities/packages/pwa/) |
+| `@manovaspace/observability` | [docs](https://manovaspace.github.io/docs/utilities/packages/observability/) |
 
-Design system (`tokens`, `ui`, `devtools`): [manovaspace/design-system](https://github.com/manovaspace/design-system) — docs at [manovaspace.github.io/design-system](https://manovaspace.github.io/design-system/).
+Design system (`tokens`, `ui`, `devtools`): [manovaspace/design-system](https://github.com/manovaspace/design-system) — [docs](https://manovaspace.github.io/docs/design-system/).
 
 ## Development
 
 ```bash
-pnpm install
-pnpm build
-pnpm test
-pnpm typecheck
+pnpm install && pnpm build && pnpm test
 ```
 
-## Releasing
-
-See [RELEASING.md](./RELEASING.md). Summary: `pnpm changeset` in PRs → `pnpm version-packages` on main → CI publishes.
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Local development (Manova workspace)
-
-Sibling repos can use `link:` until semver pins are on npm:
-
-```json
-"@manovaspace/pwa": "link:../../../manovaspace/ts/packages/pwa"
-```
-
-Scripts: `scripts/ensure-build.mjs`, `scripts/switch-consumers-to-npm.mjs`, `scripts/switch-consumers-to-link.mjs`.
+See [RELEASING.md](./RELEASING.md) and [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT
