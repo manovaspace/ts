@@ -1,0 +1,24 @@
+import { execSync } from "node:child_process";
+import { existsSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+const packages = [
+  { filter: "@manovaspace/markdown", marker: "packages/markdown/dist/index.js" },
+  { filter: "@manovaspace/pwa", marker: "packages/pwa/dist/index.js" },
+  {
+    filter: "@manovaspace/observability",
+    marker: "packages/observability/dist/index.js",
+  },
+];
+
+const missing = packages.filter(({ marker }) => !existsSync(join(root, marker)));
+
+if (missing.length > 0) {
+  console.log(
+    `[manovaspace/ts] missing dist for ${missing.map((p) => p.filter).join(", ")}; building...`,
+  );
+  execSync("pnpm build", { cwd: root, stdio: "inherit" });
+}
