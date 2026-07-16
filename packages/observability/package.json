@@ -1,7 +1,7 @@
 {
   "name": "@manovaspace/observability",
   "version": "0.1.3",
-  "description": "Next.js instrumentation helpers for Sentry and optional OpenTelemetry",
+  "description": "Next.js instrumentation helpers for Sentry",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,

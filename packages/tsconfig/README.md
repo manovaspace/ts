@@ -1,11 +1,17 @@
 # @manovaspace/tsconfig
 
-Strict shared TypeScript presets for Next.js apps and React libraries.
+Strict shared TypeScript presets for Next.js applications and React libraries.
 
 ```bash
 pnpm add -D @manovaspace/tsconfig
 ```
 
-**Docs:** [manovaspace.github.io/docs/utilities/packages/tsconfig](https://manovaspace.github.io/docs/utilities/packages/tsconfig/)
+Also works with npm and yarn.
 
-MIT — part of [manovaspace/ts](https://github.com/manovaspace/ts).
+**Documentation:** [manovaspace.github.io/docs/utilities/packages/tsconfig](https://manovaspace.github.io/docs/utilities/packages/tsconfig/)
+
+**Source:** [manovaspace/ts](https://github.com/manovaspace/ts/tree/main/packages/tsconfig)
+
+## License
+
+MIT

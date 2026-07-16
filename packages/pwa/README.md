@@ -1,11 +1,17 @@
 # @manovaspace/pwa
 
-Serwist and web app manifest helpers for Next.js PWAs.
+Serwist service-worker helpers and web app manifest utilities for Next.js progressive web apps.
 
 ```bash
 pnpm add @manovaspace/pwa
 ```
 
-**Docs:** [manovaspace.github.io/docs/utilities/packages/pwa](https://manovaspace.github.io/docs/utilities/packages/pwa/)
+Also works with npm and yarn.
 
-MIT — part of [manovaspace/ts](https://github.com/manovaspace/ts).
+**Documentation:** [manovaspace.github.io/docs/utilities/packages/pwa](https://manovaspace.github.io/docs/utilities/packages/pwa/)
+
+**Source:** [manovaspace/ts](https://github.com/manovaspace/ts/tree/main/packages/pwa)
+
+## License
+
+MIT
