@@ -1,8 +1,8 @@
 # @manovaspace/tsconfig
 
-Shared TypeScript compiler presets for Manova [open commons](https://github.com/manovaspace).
+Strict shared TypeScript presets for Next.js apps and React libraries.
 
-Extracted from Orbit `orbit-frontend`; Orbit UI packages remain proprietary under `@orbit/*`.
+Part of [manovaspace/ts](https://github.com/manovaspace/ts) — MIT open commons.
 
 ## Install
 
@@ -22,7 +22,7 @@ pnpm add -D @manovaspace/tsconfig
 }
 ```
 
-**React library package**
+**React library**
 
 ```json
 {
@@ -37,24 +37,20 @@ pnpm add -D @manovaspace/tsconfig
 | --- | --- |
 | `base.json` | Strict ES2022 defaults |
 | `nextjs.json` | Next.js App Router apps |
-| `react-library.json` | React packages (jsx react-jsx) |
+| `react-library.json` | React packages (`jsx: react-jsx`) |
 
-## Local development (Manova workspace)
+## Related packages
 
-For co-development before a release lands on npm, use `link:` (see [open commons](/guides/open-commons)):
+| Package | Use when |
+| --- | --- |
+| [`@manovaspace/markdown`](https://www.npmjs.com/package/@manovaspace/markdown) | GFM blog/docs in React |
+| [`@manovaspace/pwa`](https://www.npmjs.com/package/@manovaspace/pwa) | Next.js PWA / Serwist |
+| [`@manovaspace/observability`](https://www.npmjs.com/package/@manovaspace/observability) | Next.js Sentry instrumentation |
 
-```json
-"@manovaspace/tsconfig": "link:../../../manovaspace/ts/packages/tsconfig"
-```
+## Contributing
 
-## Publish
-
-```bash
-npm publish --access public
-```
-
-CI publishes on GitHub Release (see `.github/workflows/publish.yml`). Requires `NPM_TOKEN` with access to the `@manovaspace` npm org.
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) and [RELEASING.md](../../RELEASING.md) in the monorepo root.
 
 ## License
 
-MIT
+MIT — see [LICENSE](../../LICENSE).
