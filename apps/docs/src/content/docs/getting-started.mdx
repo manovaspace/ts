@@ -1,0 +1,43 @@
+---
+title: Getting started
+description: Install @manovaspace packages from npm and use them in Next.js apps.
+---
+
+# Getting started
+
+## Install from npm
+
+`@manovaspace/*` resolves from [registry.npmjs.org](https://registry.npmjs.org). No special `.npmrc` scope is required.
+
+```bash
+pnpm add -D @manovaspace/tsconfig
+pnpm add @manovaspace/markdown
+pnpm add @manovaspace/pwa
+pnpm add @manovaspace/observability
+```
+
+If you also use private `@orbit/*` packages from Verdaccio, keep that registry **scoped only**:
+
+```ini
+@orbit:registry=https://npm.dev.manova.space
+```
+
+## TypeScript
+
+Extend shared presets in `tsconfig.json` — see [tsconfig](/packages/tsconfig/).
+
+## Next.js apps
+
+| Need | Package |
+| --- | --- |
+| Blog / markdown content | [markdown](/packages/markdown/) |
+| PWA / offline | [pwa](/packages/pwa/) |
+| Sentry instrumentation | [observability](/packages/observability/) |
+
+## Local development (Manova staff)
+
+Sibling repos in the Manova workspace may use `link:` paths during co-development. Published semver pins are used for CI and external consumers.
+
+## Contributing
+
+See [Contributing](/contributing/) and [RELEASING.md](https://github.com/manovaspace/ts/blob/main/RELEASING.md) on GitHub.

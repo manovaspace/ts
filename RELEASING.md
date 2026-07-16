@@ -68,28 +68,25 @@ For local co-development before publish, revert with `scripts/switch-consumers-t
 ## First publish (one-time)
 
 1. Create npm org [**manovaspace**](https://www.npmjs.com/org/manovaspace)
-2. From your terminal (with 2FA):
-
-```bash
-cd manovaspace/ts
-pnpm build
-cd packages/tsconfig && npm publish --access public
-cd ../markdown && npm publish --access public
-cd ../observability && npm publish --access public
-cd ../pwa && npm publish --access public
-```
+2. Prefer **`pnpm release`** from the monorepo root — resolves `catalog:` and `workspace:*` before publish. Raw `npm publish` per package works only if `dependencies` / `peerDependencies` use real semver ranges (not `catalog:`).
 
 3. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) per package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`) — avoids long-lived `NPM_TOKEN`
 4. Optional: `gh secret set NPM_TOKEN --repo manovaspace/ts` as fallback
 
 ## CI authentication
 
-| Method | When |
-| --- | --- |
-| **Trusted publishing (OIDC)** | Preferred — workflow has `id-token: write` |
-| **`NPM_TOKEN` secret** | Fallback until trusted publishers configured |
+**Trusted publishing (OIDC)** — workflow has `id-token: write`. Do not set `NODE_AUTH_TOKEN` in CI when OIDC is configured.
 
-Do not set `NODE_AUTH_TOKEN` when testing OIDC — npm uses token path instead of OIDC.
+Configure once in your terminal (2FA browser prompt):
+
+```bash
+chmod +x scripts/configure-trusted-publishing.sh
+./scripts/configure-trusted-publishing.sh
+```
+
+Verify: `npm trust list @manovaspace/tsconfig`
+
+Optional **fallback:** add repo secret `NPM_TOKEN` and pass `NODE_AUTH_TOKEN` in the workflow only if OIDC is unavailable.
 
 ## GitHub Release (optional)
 
