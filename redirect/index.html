@@ -10,7 +10,10 @@
       var q = window.location.search || "";
       var h = window.location.hash || "";
       var dest;
-      if (p.indexOf("/ts/packages/") === 0) {
+      var ds = p.match(/^\/ts\/packages\/(tokens|ui|devtools)(\/|$)/);
+      if (ds) {
+        dest = docs + "/design-system/packages/" + ds[1] + "/";
+      } else if (p.indexOf("/ts/packages/") === 0) {
         dest = docs + "/utilities" + p.slice(3) + "/";
       } else if (p.indexOf("/ts") === 0) {
         dest = docs + "/utilities/";
