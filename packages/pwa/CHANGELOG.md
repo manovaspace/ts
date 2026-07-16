@@ -1,5 +1,11 @@
 # @manovaspace/pwa
 
+## 1.0.3
+
+### Patch Changes
+
+- Update npm homepage URLs to unified docs site at manovaspace.github.io/docs.
+
 ## 1.0.2
 
 ### Patch Changes

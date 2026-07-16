@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/markdown",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Lightweight GFM markdown renderer for React and Next.js",
   "license": "MIT",
   "type": "module",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/manovaspace/ts/issues"
   },
-  "homepage": "https://manovaspace.github.io/ts/packages/markdown/",
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/markdown/",
   "scripts": {
     "prepublishOnly": "node ../../scripts/assert-publishable-deps.mjs",
     "build": "tsup",
