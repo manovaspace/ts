@@ -1,1 +1,0 @@
-export { Badge, badgeVariants } from "./primitives/badge.js";

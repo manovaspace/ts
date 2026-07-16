@@ -17,9 +17,6 @@ PACKAGES=(
   @manovaspace/markdown
   @manovaspace/pwa
   @manovaspace/observability
-  @manovaspace/tokens
-  @manovaspace/ui
-  @manovaspace/devtools
 )
 
 has_trust() {
