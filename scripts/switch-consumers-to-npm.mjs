@@ -18,22 +18,29 @@ const versions = {
   "@manovaspace/observability": JSON.parse(
     readFileSync(join(root, "packages/observability/package.json"), "utf8"),
   ).version,
+  "@manovaspace/tokens": JSON.parse(
+    readFileSync(join(root, "packages/tokens/package.json"), "utf8"),
+  ).version,
+  "@manovaspace/ui": JSON.parse(
+    readFileSync(join(root, "packages/ui/package.json"), "utf8"),
+  ).version,
+  "@manovaspace/devtools": JSON.parse(
+    readFileSync(join(root, "packages/devtools/package.json"), "utf8"),
+  ).version,
 };
 
 const packageJsonPaths = [
   "orbit/orbit-frontend/apps/template/package.json",
   "orbit/orbit-frontend/apps/storybook/package.json",
-  "orbit/orbit-frontend/packages/ui/package.json",
-  "orbit/orbit-frontend/packages/tokens/package.json",
   "orbit/orbit-frontend/packages/data/package.json",
-  "orbit/orbit-frontend/packages/devtools/package.json",
   "clients/kaazhe/frontend/package.json",
   "clients/jtash/frontend/package.json",
   "clients/manova/waypoint/package.json",
   "clients/manova/manova-frontend/package.json",
 ];
 
-const linkRe = /^link:.*manovaspace\/ts\/packages\/(tsconfig|markdown|pwa|observability)$/;
+const linkRe =
+  /^link:.*manovaspace\/ts\/packages\/(tsconfig|markdown|pwa|observability|tokens|ui|devtools)$/;
 
 for (const rel of packageJsonPaths) {
   const path = join(workspaceRoot, rel);
