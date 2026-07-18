@@ -1,5 +1,11 @@
 # @manovaspace/markdown
 
+## 0.1.4
+
+### Patch Changes
+
+- Update npm homepage URLs to unified docs site at manovaspace.github.io/docs.
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/pwa",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Serwist and web app manifest helpers for Next.js progressive web apps",
   "license": "MIT",
   "type": "module",
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/manovaspace/ts/issues"
   },
-  "homepage": "https://manovaspace.github.io/ts/packages/pwa/",
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/pwa/",
   "scripts": {
     "prepublishOnly": "node ../../scripts/assert-publishable-deps.mjs",
     "build": "tsup",

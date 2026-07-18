@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/tsconfig",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Strict shared TypeScript presets for Next.js apps and React libraries",
   "license": "MIT",
   "keywords": [
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/manovaspace/ts/issues"
   },
-  "homepage": "https://manovaspace.github.io/ts/packages/tsconfig/",
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/tsconfig/",
   "files": [
     "base.json",
     "nextjs.json",
