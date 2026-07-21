@@ -16,11 +16,16 @@ This stub lists **manovaspace** triggers for GitHub contributors. Agents working
 | MS-FT-006 | Consumer semver pins | done |
 | MS-FT-007 | SECURITY.md | deferred |
 | MS-FT-008 | Changesets action bot | deferred |
-| MS-FT-009 | Org landing `manovaspace.github.io` | deferred |
+| MS-FT-009 | Custom domain `docs.manovaspace.dev` | deferred |
+| MS-FT-010 | `manovaspace/design-system` repo split | done |
+| MS-FT-011 | Unified docs repo `manovaspace/docs` | done |
+| MS-FT-012 | Hosted Storybook on Pages | deferred |
+| MS-FT-013 | Rename public `Orbit*` type names | deferred |
 
 Full conditions and agent rules: see workspace `FUTURE-TRIGGERS.md`.
 
 ## Related
 
 - [RELEASING.md](./RELEASING.md)
-- [docs/DECISIONS.md](./docs/DECISIONS.md) — Starlight + URL approval
+- [Docs decisions](https://github.com/manovaspace/docs/blob/main/meta/DECISIONS.md)
+- [Public docs](https://manovaspace.github.io/docs/)
