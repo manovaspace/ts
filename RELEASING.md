@@ -1,47 +1,44 @@
 # Releasing
 
-How `@manovaspace/*` packages are versioned and published to [registry.npmjs.org](https://www.npmjs.org).
+How `@manovaspace/*` packages in this repository are versioned and published to [npmjs.org](https://www.npmjs.com).
 
 ## Versioning policy
 
-- **Independent semver** per package (Changesets default). `@manovaspace/pwa` at `1.2.0` and `@manovaspace/tsconfig` at `0.1.3` is normal.
-- **Patch** — bugfix, internal refactor, docs-only in published files
-- **Minor** — backward-compatible API addition
-- **Major** — breaking change (rename export, drop Node/Next support, etc.)
+- **Independent semver** per package (Changesets default). Different packages may sit at different versions.
+- **Patch** — bug fixes, internal refactors, documentation in published files
+- **Minor** — backward-compatible API additions
+- **Major** — breaking changes (renamed exports, dropped runtime support, and similar)
 
-### Version lockstep — when to use it
+### Optional lockstep
 
-**Default: independent versions** (current config). Each package releases when it changes. Best for unrelated utilities (`tsconfig` vs `pwa`).
-
-**Optional lockstep** — add a `fixed` group in `.changeset/config.json` only if two packages always ship together (e.g. future `pwa` + `pwa-sw` split). Orbit.js used lockstep across 15+ packages; you have four loosely coupled libs — **don't lockstep unless consumers always upgrade them as a set**.
+Default remains independent versions. Add a `fixed` group in `.changeset/config.json` only when two or more packages must always release together:
 
 ```json
 "fixed": [["@manovaspace/pwa", "@manovaspace/observability"]]
 ```
 
-Only add this if you document why. Otherwise independent is simpler for consumers and changelog clarity.
+Document the reason in the pull request if you enable lockstep. Otherwise prefer independent versions for clearer changelogs.
 
-### Changelog / version history
+### Changelogs
 
-Changesets appends to each package's `CHANGELOG.md` on `pnpm version-packages`. You do **not** need a long npm version history on purpose — quality over quantity. A few meaningful semver releases beat dozens of empty patches.
+`pnpm version-packages` updates each package’s `CHANGELOG.md`. Prefer meaningful releases over frequent empty patches.
 
-## Routine release (maintainers)
+## Routine release
 
-### 1. Merge PRs with changesets
+### 1. Merge pull requests that include changesets
 
-Every npm-facing change should include `pnpm changeset` output in `.changeset/`.
+Every publishable change should include output from `pnpm changeset` under `.changeset/`.
 
-### 2. Version
+### 2. Version on `main`
 
 ```bash
-cd manovaspace/ts
-pnpm version-packages    # bumps package.json + CHANGELOG.md
+pnpm version-packages
 git add -A
 git commit -m "chore: version packages"
 git push origin main
 ```
 
-### 3. Publish (automatic)
+### 3. Publish
 
 CI publishes when a `chore: version packages` commit lands on `main` (see `.github/workflows/publish.yml`).
 
@@ -49,64 +46,44 @@ Manual fallback:
 
 ```bash
 pnpm build
-pnpm release             # or: npm publish in each package directory
+pnpm release
 ```
 
-**npm 2FA:** Account uses `auth-and-writes`. Local publish opens a browser approval URL — complete it in the terminal session.
+npm accounts with `auth-and-writes` may prompt for browser confirmation during a local publish.
 
-### 4. Manova workspace consumers
+## First publish of a new package
 
-After packages exist on npm:
+1. Prefer **`pnpm release`** from the monorepo root so `catalog:` and `workspace:*` ranges resolve before publish.
+2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`).
 
-```bash
-node scripts/switch-consumers-to-npm.mjs
-# then pnpm install in orbit-frontend + affected client apps
-```
-
-For local co-development before publish, revert with `scripts/switch-consumers-to-link.mjs`.
-
-## First publish (one-time)
-
-1. Create npm org [**manovaspace**](https://www.npmjs.com/org/manovaspace)
-2. Prefer **`pnpm release`** from the monorepo root — resolves `catalog:` and `workspace:*` before publish. Raw `npm publish` per package works only if `dependencies` / `peerDependencies` use real semver ranges (not `catalog:`).
-
-3. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) per package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`) — avoids long-lived `NPM_TOKEN`
-
-   **New package names** (`tokens`, `ui`, `devtools`, …): npm requires a **first publish with 2FA** before `npm trust github` works. Order:
-
-   ```bash
-   pnpm build && pnpm release          # browser 2FA — creates the package on npmjs.org
-   ./scripts/configure-trusted-publishing.sh   # then OIDC per package
-   ```
-
-   Re-running the trust script is safe: it skips packages already configured (409) and packages not yet on npm.
-
-4. Optional: `gh secret set NPM_TOKEN --repo manovaspace/ts` as fallback
-
-## CI authentication
-
-**Trusted publishing (OIDC)** — workflow has `id-token: write`. Do not set `NODE_AUTH_TOKEN` in CI when OIDC is configured.
-
-Configure once in your terminal (2FA browser prompt):
+New package names require a **first local publish with 2FA** before trusted publishing can be attached:
 
 ```bash
-chmod +x scripts/configure-trusted-publishing.sh
+pnpm build && pnpm release
 ./scripts/configure-trusted-publishing.sh
 ```
 
-Verify: `npm trust list @manovaspace/tsconfig`
+Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
 
-Optional **fallback:** add repo secret `NPM_TOKEN` and pass `NODE_AUTH_TOKEN` in the workflow only if OIDC is unavailable.
+Optional fallback: repository secret `NPM_TOKEN` for CI when OIDC is unavailable.
 
-## GitHub Release (optional)
+## CI authentication
 
-Creating a GitHub Release also triggers publish. Useful for tagging milestones; day-to-day releases only need the version commit.
+Trusted publishing uses OIDC (`id-token: write` on the workflow). Do not set `NODE_AUTH_TOKEN` in CI when OIDC is configured.
+
+```bash
+./scripts/configure-trusted-publishing.sh
+npm trust list @manovaspace/tsconfig
+```
+
+## GitHub Releases
+
+Creating a GitHub Release can also trigger publish. Day-to-day releases only need the version commit on `main`.
 
 ## Checklist
 
-- [ ] Changeset committed in PR
-- [ ] `pnpm version-packages` on main
+- [ ] Changeset included in the pull request
+- [ ] `pnpm version-packages` run on `main`
 - [ ] `chore: version packages` pushed
-- [ ] CI publish green
-- [ ] `npm view @manovaspace/<pkg> version` matches
-- [ ] Manova consumers updated if needed
+- [ ] CI publish succeeded
+- [ ] `npm view @manovaspace/<package> version` matches the release
