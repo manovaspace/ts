@@ -1,11 +1,17 @@
 # @manovaspace/markdown
 
-Lightweight GFM markdown renderer for React and Next.js.
+Lightweight GitHub-Flavored Markdown renderer for React and Next.js.
 
 ```bash
 pnpm add @manovaspace/markdown
 ```
 
-**Docs:** [manovaspace.github.io/docs/utilities/packages/markdown](https://manovaspace.github.io/docs/utilities/packages/markdown/)
+Also works with npm and yarn.
 
-MIT — part of [manovaspace/ts](https://github.com/manovaspace/ts).
+**Documentation:** [manovaspace.github.io/docs/utilities/packages/markdown](https://manovaspace.github.io/docs/utilities/packages/markdown/)
+
+**Source:** [manovaspace/ts](https://github.com/manovaspace/ts/tree/main/packages/markdown)
+
+## License
+
+MIT
