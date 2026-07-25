@@ -69,7 +69,7 @@ Optional fallback: repository secret `NPM_TOKEN` for CI when OIDC is unavailable
 
 ## CI authentication
 
-Trusted publishing uses OIDC (`id-token: write` on the workflow). Do not set `NODE_AUTH_TOKEN` in CI when OIDC is configured.
+Trusted publishing uses OIDC (`id-token: write` on the workflow). Do not set `NODE_AUTH_TOKEN` in CI when OIDC is configured. CI sets `NPM_CONFIG_PROVENANCE=true` so publishes include npm provenance attestations.
 
 ```bash
 ./scripts/configure-trusted-publishing.sh
