@@ -1,5 +1,11 @@
 # @manovaspace/pwa
 
+## 1.0.4
+
+### Patch Changes
+
+- aa6a19e: Add @manovaspace/build shared tsup helpers; migrate markdown, pwa, and observability onto it.
+
 ## 1.0.3
 
 ### Patch Changes

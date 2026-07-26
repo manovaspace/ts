@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/markdown",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight GFM markdown renderer for React and Next.js",
   "license": "MIT",
   "type": "module",
