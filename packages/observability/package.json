@@ -61,6 +61,10 @@
     "@types/node": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "@manovaspace/build": "workspace:*"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

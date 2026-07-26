@@ -1,14 +1,9 @@
-import { defineConfig } from "tsup";
+import { defineLibraryConfig } from "@manovaspace/build";
 
-export default defineConfig({
+export default defineLibraryConfig({
   entry: {
     index: "src/index.ts",
     "next/instrumentation": "src/next/instrumentation.ts",
   },
-  format: ["esm"],
-  dts: true,
-  sourcemap: true,
-  clean: !process.argv.includes("--watch"),
   external: ["@sentry/nextjs", "next"],
-  treeshake: true,
 });

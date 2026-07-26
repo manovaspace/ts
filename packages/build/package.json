@@ -1,0 +1,57 @@
+{
+  "name": "@manovaspace/build",
+  "version": "0.0.0",
+  "description": "Shared tsup config helpers for @manovaspace packages",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "tsup",
+    "build",
+    "typescript",
+    "esm",
+    "manovaspace"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/build"
+  },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/build/",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/assert-publishable-deps.mjs",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "tsup": "^8.5.0"
+  },
+  "devDependencies": {
+    "@manovaspace/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

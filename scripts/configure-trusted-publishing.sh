@@ -17,6 +17,7 @@ PACKAGES=(
   @manovaspace/markdown
   @manovaspace/pwa
   @manovaspace/observability
+  @manovaspace/build
 )
 
 has_trust() {

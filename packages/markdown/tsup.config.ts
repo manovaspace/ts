@@ -1,17 +1,6 @@
-import { defineConfig } from "tsup";
+import { defineReactLibraryConfig } from "@manovaspace/build";
 
-export default defineConfig({
+export default defineReactLibraryConfig({
   entry: ["src/index.ts"],
-  format: ["esm"],
-  dts: true,
-  sourcemap: true,
-  clean: !process.argv.includes("--watch"),
-  external: [
-    "react",
-    "react-dom",
-    "react/jsx-runtime",
-    "react-markdown",
-    "remark-gfm",
-  ],
-  treeshake: true,
+  external: ["react-markdown", "remark-gfm"],
 });
