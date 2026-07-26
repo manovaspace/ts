@@ -6,7 +6,7 @@ Status values: `deferred` | `fired` | `scaffolded` | `done`.
 
 | ID | Title | Status |
 | --- | --- | --- |
-| MS-FT-001 | `@manovaspace/build` shared tooling | fired |
+| MS-FT-001 | `@manovaspace/build` shared tooling | done |
 | MS-FT-002 | Changesets lockstep | deferred |
 | MS-FT-003 | npm trusted publishing (OIDC) | done |
 | MS-FT-004 | GitHub Pages docs site | done |

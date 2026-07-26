@@ -56,16 +56,24 @@ npm accounts with `auth-and-writes` may prompt for browser confirmation during a
 1. Prefer **`pnpm release`** from the monorepo root so `catalog:` and `workspace:*` ranges resolve before publish.
 2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`).
 
-New package names require a **first local publish with 2FA** before trusted publishing can be attached:
+New package names cannot be created by OIDC alone. Use one of:
+
+**A. Local first publish (interactive 2FA)**
 
 ```bash
+npm login --registry=https://registry.npmjs.org
 pnpm build && pnpm release
 ./scripts/configure-trusted-publishing.sh
 ```
 
-Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
+**B. Automation token (CI)**
 
-Optional fallback: repository secret `NPM_TOKEN` for CI when OIDC is unavailable.
+1. Create an npm classic/granular token with publish rights on `@manovaspace/*`.
+2. `gh secret set NPM_TOKEN --repo manovaspace/ts`
+3. Push `chore: version packages` (or re-run the Publish workflow). `NODE_AUTH_TOKEN` is wired in `publish.yml` for this case.
+4. `./scripts/configure-trusted-publishing.sh` then remove `NPM_TOKEN` if you prefer OIDC-only afterwards.
+
+Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
 
 ## CI authentication
 

@@ -39,4 +39,7 @@ jobs:
       - name: Publish
         env:
           NPM_CONFIG_PROVENANCE: "true"
+          # Optional: set repo secret NPM_TOKEN for first publish of a *new* package name
+          # (OIDC trusted publishing cannot create brand-new packages). Remove after trust is configured.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm release
