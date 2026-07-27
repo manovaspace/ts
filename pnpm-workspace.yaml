@@ -9,18 +9,18 @@ allowBuilds:
   sharp: true
 
 catalog:
-  react: ^19.2.7
-  react-dom: ^19.2.7
+  react: ^19.2.8
+  react-dom: ^19.2.8
   typescript: ^6.0.3
-  next: ^16.2.10
+  next: ^16.2.12
   "@types/react": ^19.2.17
   "@types/react-dom": ^19.2.3
   "@types/node": ^26.1.0
-  "@biomejs/biome": ^2.5.2
+  "@biomejs/biome": ^2.5.5
   tsup: ^8.5.1
   vitest: ^3.2.6
-  "@serwist/turbopack": ^9.5.11
-  serwist: ^9.5.11
+  "@serwist/turbopack": ^9.5.12
+  serwist: ^9.5.12
   react-markdown: ^10.1.0
   remark-gfm: ^4.0.1
   "@sentry/nextjs": ^9.0.0
