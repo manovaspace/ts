@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to manovaspace docs</title>
+  <script>
+    (function () {
+      var docs = "https://manovaspace.github.io/docs";
+      var p = window.location.pathname.replace(/\/$/, "") || "/";
+      var q = window.location.search || "";
+      var h = window.location.hash || "";
+      var dest;
+      var ds = p.match(/^\/ts\/packages\/(tokens|ui|devtools)(\/|$)/);
+      if (ds) {
+        dest = docs + "/design-system/packages/" + ds[1] + "/";
+      } else if (p.indexOf("/ts/packages/") === 0) {
+        dest = docs + "/utilities" + p.slice(3) + "/";
+      } else if (p.indexOf("/ts") === 0) {
+        dest = docs + "/utilities/";
+      } else {
+        dest = docs + "/utilities/";
+      }
+      window.location.replace(dest + q + h);
+    })();
+  </script>
+  <meta http-equiv="refresh" content="0;url=https://manovaspace.github.io/docs/utilities/">
+</head>
+<body>
+  <p>Documentation moved to <a href="https://manovaspace.github.io/docs/utilities/">manovaspace.github.io/docs</a>.</p>
+</body>
+</html>
