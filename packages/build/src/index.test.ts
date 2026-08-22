@@ -9,7 +9,7 @@ import {
 describe("@manovaspace/build", () => {
   it("defineLibraryConfig sets ESM defaults", () => {
     const cfg = defineLibraryConfig({ entry: ["src/index.ts"] });
-    const opts = Array.isArray(cfg) ? cfg[0] : cfg;
+    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as import("tsup").Options;
     expect(opts.format).toEqual(["esm"]);
     expect(opts.dts).toBe(true);
     expect(opts.sourcemap).toBe(true);
@@ -21,13 +21,13 @@ describe("@manovaspace/build", () => {
       entry: ["src/index.ts"],
       external: ["foo"],
     });
-    const opts = Array.isArray(cfg) ? cfg[0] : cfg;
+    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as import("tsup").Options;
     expect(opts.external).toEqual([...REACT_EXTERNALS, "foo"]);
   });
 
   it("defineUnbundledConfig disables bundle and treeshake", () => {
     const cfg = defineUnbundledConfig({ entry: ["src/index.ts"] });
-    const opts = Array.isArray(cfg) ? cfg[0] : cfg;
+    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as import("tsup").Options;
     expect(opts.bundle).toBe(false);
     expect(opts.treeshake).toBe(false);
   });
