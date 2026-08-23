@@ -1,9 +1,11 @@
 import { spawn } from "node:child_process";
-import { ensureManovaBinary, findLocalBinary, getPlatformInfo } from "./installer.js";
+import { ensureManovaBinary } from "./installer.js";
 
 export * from "./installer.js";
 
-export async function runCli(args: string[] = process.argv.slice(2)): Promise<number> {
+export async function runCli(
+  args: string[] = process.argv.slice(2),
+): Promise<number> {
   const binaryPath = await ensureManovaBinary();
 
   return new Promise<number>((resolve, reject) => {

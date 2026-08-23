@@ -1,7 +1,7 @@
+import { execSync } from "node:child_process";
 import { chmodSync, existsSync, mkdirSync } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join } from "node:path";
-import { execSync } from "node:child_process";
+import { join } from "node:path";
 
 export interface PlatformInfo {
   os: "linux" | "darwin" | "windows";
@@ -31,7 +31,8 @@ export function getPlatformInfo(): PlatformInfo {
 export function findLocalBinary(): string | null {
   // 1. Check PATH
   try {
-    const whichCmd = process.platform === "win32" ? "where manova" : "which manova";
+    const whichCmd =
+      process.platform === "win32" ? "where manova" : "which manova";
     const path = execSync(whichCmd, { stdio: ["pipe", "pipe", "ignore"] })
       .toString()
       .trim()
@@ -44,13 +45,26 @@ export function findLocalBinary(): string | null {
   }
 
   // 2. Check local ~/.manova/bin/manova
-  const userBin = join(homedir(), ".manova", "bin", process.platform === "win32" ? "manova.exe" : "manova");
+  const userBin = join(
+    homedir(),
+    ".manova",
+    "bin",
+    process.platform === "win32" ? "manova.exe" : "manova",
+  );
   if (existsSync(userBin)) {
     return userBin;
   }
 
   // 3. Check workspace directory layout ~/Dev/Manova/orbit/orbit-cli/bin/manova
-  const devBin = join(homedir(), "Dev", "Manova", "orbit", "orbit-cli", "bin", process.platform === "win32" ? "manova.exe" : "manova");
+  const devBin = join(
+    homedir(),
+    "Dev",
+    "Manova",
+    "orbit",
+    "orbit-cli",
+    "bin",
+    process.platform === "win32" ? "manova.exe" : "manova",
+  );
   if (existsSync(devBin)) {
     return devBin;
   }
@@ -78,7 +92,9 @@ export async function ensureManovaBinary(): Promise<string> {
   const version = "latest";
   const downloadUrl = `https://github.com/manovaspace/orbit-cli/releases/${version}/download/manova-${os}-${arch}`;
 
-  console.log(`\x1b[36mℹ\x1b[0m Downloading Manova CLI binary for ${os}-${arch}...`);
+  console.log(
+    `\x1b[36mℹ\x1b[0m Downloading Manova CLI binary for ${os}-${arch}...`,
+  );
 
   try {
     const res = await fetch(downloadUrl);
@@ -89,16 +105,25 @@ export async function ensureManovaBinary(): Promise<string> {
       chmodSync(targetPath, 0o755);
       return targetPath;
     }
-  } catch (err) {
+  } catch (_err) {
     // Network or release unavailable; fallback to compiling or running via Go if available
   }
 
   // Fallback: Check if Go compiler is present to compile directly
   try {
     execSync("go version", { stdio: "ignore" });
-    console.log(`\x1b[33m⚠\x1b[0m Binary release not cached; building via Go toolchain...`);
-    execSync(`go install git.dev.manova.space/manova/orbit-cli/cmd/manova@latest`, { stdio: "inherit" });
-    const goBin = join(process.env.GOPATH || join(homedir(), "go"), "bin", binaryName);
+    console.log(
+      `\x1b[33m⚠\x1b[0m Binary release not cached; building via Go toolchain...`,
+    );
+    execSync(
+      `go install git.dev.manova.space/manova/orbit-cli/cmd/manova@latest`,
+      { stdio: "inherit" },
+    );
+    const goBin = join(
+      process.env.GOPATH || join(homedir(), "go"),
+      "bin",
+      binaryName,
+    );
     if (existsSync(goBin)) {
       return goBin;
     }
