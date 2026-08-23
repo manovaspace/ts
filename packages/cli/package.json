@@ -1,0 +1,64 @@
+{
+  "name": "@manovaspace/cli",
+  "version": "0.1.0",
+  "description": "CLI orchestrator and developer onboarding wizard for the Manova workspace",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "manova": "./bin/manova.js",
+    "manovaspace": "./bin/manova.js"
+  },
+  "keywords": [
+    "manova",
+    "cli",
+    "onboard",
+    "developer-tools",
+    "workspace",
+    "orbit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/cli/",
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/assert-publishable-deps.mjs",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@manovaspace/tsconfig": "workspace:*",
+    "@types/node": "^26.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^3.2.6",
+    "@manovaspace/build": "workspace:*"
+  },
+  "packageManager": "bun@1.3.14"
+}
