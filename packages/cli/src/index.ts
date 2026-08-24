@@ -8,8 +8,11 @@ export async function runCli(
 ): Promise<number> {
   const binaryPath = await ensureManovaBinary();
 
+  // If invoked with no arguments (e.g. `npx @manovaspace/cli`), launch onboarding wizard by default
+  const finalArgs = args.length === 0 ? ["onboard"] : args;
+
   return new Promise<number>((resolve, reject) => {
-    const child = spawn(binaryPath, args, {
+    const child = spawn(binaryPath, finalArgs, {
       stdio: "inherit",
       env: process.env,
     });
