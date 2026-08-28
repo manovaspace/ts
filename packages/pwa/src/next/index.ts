@@ -2,10 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import {
-  createSerwistRoute as createSerwistRouteBase,
-  withSerwist,
-} from "@serwist/turbopack";
+import { createSerwistRoute as createSerwistRouteBase, withSerwist } from "@serwist/turbopack";
 
 export { withSerwist };
 

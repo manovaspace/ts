@@ -1,3 +1,4 @@
+import type { Options } from "tsup";
 import { describe, expect, it } from "vitest";
 import {
   REACT_EXTERNALS,
@@ -9,7 +10,7 @@ import {
 describe("@manovaspace/build", () => {
   it("defineLibraryConfig sets ESM defaults", () => {
     const cfg = defineLibraryConfig({ entry: ["src/index.ts"] });
-    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as import("tsup").Options;
+    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as Options;
     expect(opts.format).toEqual(["esm"]);
     expect(opts.dts).toBe(true);
     expect(opts.sourcemap).toBe(true);
@@ -21,13 +22,13 @@ describe("@manovaspace/build", () => {
       entry: ["src/index.ts"],
       external: ["foo"],
     });
-    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as import("tsup").Options;
+    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as Options;
     expect(opts.external).toEqual([...REACT_EXTERNALS, "foo"]);
   });
 
   it("defineUnbundledConfig disables bundle and treeshake", () => {
     const cfg = defineUnbundledConfig({ entry: ["src/index.ts"] });
-    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as import("tsup").Options;
+    const opts = (Array.isArray(cfg) ? cfg[0] : cfg) as Options;
     expect(opts.bundle).toBe(false);
     expect(opts.treeshake).toBe(false);
   });

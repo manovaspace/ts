@@ -36,11 +36,7 @@ for (const rel of packageJsonPaths) {
   const path = join(workspaceRoot, rel);
   const pkg = JSON.parse(readFileSync(path, "utf8"));
 
-  for (const section of [
-    "dependencies",
-    "devDependencies",
-    "peerDependencies",
-  ]) {
+  for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
     const deps = pkg[section];
     if (!deps) continue;
 
