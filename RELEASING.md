@@ -21,18 +21,18 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 ### Changelogs
 
-`pnpm version-packages` updates each package’s `CHANGELOG.md`. Prefer meaningful releases over frequent empty patches.
+`bun run version-packages` updates each package’s `CHANGELOG.md`. Prefer meaningful releases over frequent empty patches.
 
 ## Routine release
 
 ### 1. Merge pull requests that include changesets
 
-Every publishable change should include output from `pnpm changeset` under `.changeset/`.
+Every publishable change should include output from `bun run changeset` under `.changeset/`.
 
 ### 2. Version on `main`
 
 ```bash
-pnpm version-packages
+bun run version-packages
 git add -A
 git commit -m "chore: version packages"
 git push origin main
@@ -45,15 +45,15 @@ CI publishes when a `chore: version packages` commit lands on `main` (see `.gith
 Manual fallback:
 
 ```bash
-pnpm build
-pnpm release
+bun run build
+bun run release
 ```
 
 npm accounts with `auth-and-writes` may prompt for browser confirmation during a local publish.
 
 ## First publish of a new package
 
-1. Prefer **`pnpm release`** from the monorepo root so `catalog:` and `workspace:*` ranges resolve before publish.
+1. Prefer **`bun run release`** from the monorepo root so `catalog:` and `workspace:*` ranges resolve before publish.
 2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`).
 
 New package names cannot be created by OIDC alone. Use one of:
@@ -62,7 +62,7 @@ New package names cannot be created by OIDC alone. Use one of:
 
 ```bash
 npm login --registry=https://registry.npmjs.org
-pnpm build && pnpm release
+bun run build && bun run release
 ./scripts/configure-trusted-publishing.sh
 ```
 
@@ -91,7 +91,7 @@ Creating a GitHub Release can also trigger publish. Day-to-day releases only nee
 ## Checklist
 
 - [ ] Changeset included in the pull request
-- [ ] `pnpm version-packages` run on `main`
+- [ ] `bun run version-packages` run on `main`
 - [ ] `chore: version packages` pushed
 - [ ] CI publish succeeded
 - [ ] `npm view @manovaspace/<package> version` matches the release

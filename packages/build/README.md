@@ -5,7 +5,7 @@ Shared [tsup](https://tsup.egoist.dev/) config helpers for `@manovaspace/*` pack
 ## Install
 
 ```bash
-pnpm add -D @manovaspace/build tsup
+bun add -d @manovaspace/build tsup
 ```
 
 ## Usage

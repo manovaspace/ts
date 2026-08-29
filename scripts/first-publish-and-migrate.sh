@@ -7,15 +7,15 @@ TS="$ROOT/manovaspace/ts"
 
 echo "==> Build and publish from manovaspace/ts"
 cd "$TS"
-pnpm install --frozen-lockfile
-pnpm release
+bun install --frozen-lockfile
+bun run release
 
 echo "==> Switch consumers to published semver pins"
 node "$TS/scripts/switch-consumers-to-npm.mjs"
 
 echo "==> Refresh lockfiles (orbit-frontend)"
 cd "$ROOT/orbit/orbit-frontend"
-pnpm install
+bun install
 
 for app in \
   "$ROOT/clients/kaazhe/frontend" \
@@ -24,7 +24,7 @@ for app in \
   "$ROOT/clients/manova/manova-frontend"
 do
   echo "==> Refresh lockfiles ($app)"
-  (cd "$app" && pnpm install)
+  (cd "$app" && bun install)
 done
 
-echo "Done. Verify: pnpm --filter @orbit/template build && cd clients/jtash/frontend && pnpm build"
+echo "Done. Verify: bun --filter @orbit/template build && cd clients/jtash/frontend && bun run build"

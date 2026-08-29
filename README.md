@@ -21,16 +21,16 @@ Related: design tokens and UI components live in [manovaspace/design-system](htt
 ## Requirements
 
 - Node.js 24 or newer (for developing this monorepo)
-- pnpm (recommended; npm and yarn also work for installing published packages)
+- bun run (recommended; npm and yarn also work for installing published packages)
 
 ## Development
 
 ```bash
-pnpm install
-pnpm build
-pnpm test
-pnpm typecheck
-pnpm lint
+bun install
+bun run build
+bun run test
+bun run typecheck
+bun run lint
 ```
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for pull requests and [RELEASING.md](./RELEASING.md) for versioning and publish.

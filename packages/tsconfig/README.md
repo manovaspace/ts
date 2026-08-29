@@ -3,7 +3,7 @@
 Strict shared TypeScript presets for Next.js applications and React libraries.
 
 ```bash
-pnpm add -D @manovaspace/tsconfig
+bun add -d @manovaspace/tsconfig
 ```
 
 Also works with npm and yarn.

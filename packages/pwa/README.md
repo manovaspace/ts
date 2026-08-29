@@ -3,7 +3,7 @@
 Serwist service-worker helpers and web app manifest utilities for Next.js progressive web apps.
 
 ```bash
-pnpm add @manovaspace/pwa
+bun add @manovaspace/pwa
 ```
 
 Also works with npm and yarn.

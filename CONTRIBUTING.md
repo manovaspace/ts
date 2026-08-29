@@ -12,17 +12,17 @@ Contributions to `@manovaspace/*` are welcome. Packages are MIT-licensed and pub
 ## Development
 
 ```bash
-pnpm install
-pnpm build
-pnpm test
-pnpm typecheck
-pnpm lint
+bun install
+bun run build
+bun run test
+bun run typecheck
+bun run lint
 ```
 
 ## Changesets
 
 ```bash
-pnpm changeset
+bun run changeset
 ```
 
 Select the affected packages and bump type (`patch`, `minor`, or `major`). Commit the generated file under `.changeset/` with your pull request.

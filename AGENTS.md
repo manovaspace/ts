@@ -5,11 +5,11 @@ MIT open-commons monorepo. Packages publish to `registry.npmjs.org` as `@manovas
 ## Commands
 
 ```bash
-pnpm build
-pnpm test
-pnpm typecheck
-pnpm changeset          # required in PRs that ship to npm
-pnpm version-packages   # maintainers only
+bun run build
+bun run test
+bun run typecheck
+bun run changeset          # required in PRs that ship to npm
+bun run version-packages   # maintainers only
 ```
 
 ## Releasing

@@ -3,7 +3,7 @@
 Lightweight GitHub-Flavored Markdown renderer for React and Next.js.
 
 ```bash
-pnpm add @manovaspace/markdown
+bun add @manovaspace/markdown
 ```
 
 Also works with npm and yarn.

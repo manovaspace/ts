@@ -20,5 +20,5 @@ if (missing.length > 0) {
   console.log(
     `[manovaspace/ts] missing dist for ${missing.map((p) => p.filter).join(", ")}; building...`,
   );
-  execSync("pnpm build", { cwd: root, stdio: "inherit" });
+  execSync("bun run build", { cwd: root, stdio: "inherit" });
 }

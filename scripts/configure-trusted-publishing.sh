@@ -3,7 +3,7 @@
 # Requires: npm 11.5.1+, logged in (npm whoami), 2FA browser approval when prompted.
 #
 # Order for NEW package names:
-#   1. pnpm build && pnpm release   (first publish — 2FA in terminal)
+#   1. bun run build && bun run release   (first publish — 2FA in terminal)
 #   2. ./scripts/configure-trusted-publishing.sh
 #   3. CI publish.yml works for later releases
 set -euo pipefail
@@ -37,7 +37,7 @@ trust_pkg() {
   fi
 
   if ! on_npm "$pkg"; then
-    echo "==> $pkg: not on npm yet — publish first (pnpm build && pnpm release), then re-run this script"
+    echo "==> $pkg: not on npm yet — publish first (bun run build && bun run release), then re-run this script"
     return 0
   fi
 

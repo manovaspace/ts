@@ -3,7 +3,7 @@
 Next.js instrumentation helpers for Sentry.
 
 ```bash
-pnpm add @manovaspace/observability
+bun add @manovaspace/observability
 ```
 
 Also works with npm and yarn.
