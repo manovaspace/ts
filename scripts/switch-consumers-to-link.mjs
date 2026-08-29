@@ -24,13 +24,6 @@ const targets = [
     },
   },
   {
-    path: "clients/kaazhe/frontend/package.json",
-    links: {
-      "@manovaspace/pwa": ms("pwa"),
-      "@manovaspace/tsconfig": ms("tsconfig"),
-    },
-  },
-  {
     path: "clients/jtash/frontend/package.json",
     links: {
       "@manovaspace/markdown": ms("markdown"),

@@ -18,7 +18,6 @@ cd "$ROOT/orbit/orbit-frontend"
 bun install
 
 for app in \
-  "$ROOT/clients/kaazhe/frontend" \
   "$ROOT/clients/jtash/frontend" \
   "$ROOT/clients/manova/waypoint" \
   "$ROOT/clients/manova/manova-frontend"
