@@ -23,7 +23,7 @@
   },
   "homepage": "https://manovaspace.github.io/docs/utilities/packages/observability/",
   "scripts": {
-    "prepublishOnly": "node ../../scripts/assert-publishable-deps.mjs",
+    "prepublishOnly": "bun ../../scripts/assert-publishable-deps.mjs",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",

@@ -11,7 +11,7 @@ bun install --frozen-lockfile
 bun run release
 
 echo "==> Switch consumers to published semver pins"
-node "$TS/scripts/switch-consumers-to-npm.mjs"
+bun "$TS/scripts/switch-consumers-to-npm.mjs"
 
 echo "==> Refresh lockfiles (orbit-frontend)"
 cd "$ROOT/orbit/orbit-frontend"
