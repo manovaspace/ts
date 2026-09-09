@@ -1,10 +1,10 @@
 import type { Options } from "tsup";
 import { describe, expect, it } from "vitest";
 import {
-  REACT_EXTERNALS,
   defineLibraryConfig,
   defineReactLibraryConfig,
   defineUnbundledConfig,
+  REACT_EXTERNALS,
 } from "./index";
 
 describe("@manovaspace/build", () => {

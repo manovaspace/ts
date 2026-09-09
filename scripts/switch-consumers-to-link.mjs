@@ -2,7 +2,12 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const workspaceRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
+const workspaceRoot = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "..",
+);
 
 const ms = (pkg) => `link:../../../manovaspace/ts/packages/${pkg}`;
 const msFromOrbitApp = (pkg) =>
@@ -48,7 +53,11 @@ for (const { path, links } of targets) {
   const file = join(workspaceRoot, path);
   const pkg = JSON.parse(readFileSync(file, "utf8"));
 
-  for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
+  for (const section of [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+  ]) {
     const deps = pkg[section];
     if (!deps) continue;
 

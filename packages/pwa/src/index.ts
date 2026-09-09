@@ -4,7 +4,7 @@ export { defineWebAppManifest } from "./manifest.js";
 export { definePwaMetadata } from "./metadata.js";
 export type {
   PwaIcon,
-  WebAppManifestConfig,
   PwaMetadataConfig,
   PwaMetadataResult,
+  WebAppManifestConfig,
 } from "./types.js";

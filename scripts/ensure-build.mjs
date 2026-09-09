@@ -6,7 +6,10 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const packages = [
-  { filter: "@manovaspace/markdown", marker: "packages/markdown/dist/index.js" },
+  {
+    filter: "@manovaspace/markdown",
+    marker: "packages/markdown/dist/index.js",
+  },
   { filter: "@manovaspace/pwa", marker: "packages/pwa/dist/index.js" },
   {
     filter: "@manovaspace/observability",
@@ -14,7 +17,9 @@ const packages = [
   },
 ];
 
-const missing = packages.filter(({ marker }) => !existsSync(join(root, marker)));
+const missing = packages.filter(
+  ({ marker }) => !existsSync(join(root, marker)),
+);
 
 if (missing.length > 0) {
   console.log(
