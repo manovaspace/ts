@@ -29,18 +29,34 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 Every publishable change should include output from `bun run changeset` under `.changeset/`.
 
-### 2. Version on `main`
+### 2. Open a version PR
+
+Start a topic branch from the updated `main` after the package PRs merge:
 
 ```bash
+git switch -c chore/version-packages
+bun install --frozen-lockfile
 bun run version-packages
-git add -A
-git commit -m "chore: version packages"
-git push origin main
 ```
+
+Review each affected package version, dependency range, generated changelog and
+lockfile. Stage only the reviewed release files, commit with
+`chore: version packages`, push the topic branch and open a PR. After CI passes,
+squash merge with the exact title `chore: version packages` and verify the merged
+head subject. Direct pushes to `main` are forbidden. If the intended versions
+have already been calculated and merged, verify that state before publishing;
+do not calculate a second bump.
 
 ### 3. Publish
 
-CI publishes when a `chore: version packages` commit lands on `main` (see `.github/workflows/publish.yml`).
+[`.github/workflows/publish.yml`](./.github/workflows/publish.yml) publishes on a
+`main` push whose head message contains literal `chore: version packages`, a
+published GitHub Release, or a maintainer-selected `workflow_dispatch`.
+`chore(release): version packages` does not satisfy the main-push condition.
+The workflow builds and publishes existing manifest versions; it does not run
+`changeset version`. Release/dispatch and local fallback must use a reviewed,
+already-versioned commit and the complete intended unpublished package set.
+Publishing changes npm; it does not deploy consumers.
 
 Manual fallback:
 
@@ -70,7 +86,7 @@ bun run build && bun run release
 
 1. Create an npm classic/granular token with publish rights on `@manovaspace/*`.
 2. `gh secret set NPM_TOKEN --repo manovaspace/ts`
-3. Push `chore: version packages` (or re-run the Publish workflow). `NODE_AUTH_TOKEN` is wired in `publish.yml` for this case.
+3. Merge the reviewed version PR with head subject `chore: version packages` (or dispatch Publish at an already-versioned reviewed commit). `NODE_AUTH_TOKEN` is wired in `publish.yml` for this case.
 4. `./scripts/configure-trusted-publishing.sh` then remove `NPM_TOKEN` if you prefer OIDC-only afterwards.
 
 Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
@@ -91,7 +107,7 @@ Creating a GitHub Release can also trigger publish. Day-to-day releases only nee
 ## Checklist
 
 - [ ] Changeset included in the pull request
-- [ ] `bun run version-packages` run on `main`
-- [ ] `chore: version packages` pushed
+- [ ] Versions/changelogs calculated once and reviewed on a topic branch
+- [ ] Version PR passed CI and merged with head subject `chore: version packages`
 - [ ] CI publish succeeded
 - [ ] `npm view @manovaspace/<package> version` matches the release
