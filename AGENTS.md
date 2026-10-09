@@ -14,7 +14,10 @@ bun run version-packages   # maintainers only
 
 ## Releasing
 
-Read [RELEASING.md](./RELEASING.md). Flow matches proprietary `orbit-frontend`: changeset in PR → `chore: version packages` on main → CI publish.
+Read [RELEASING.md](./RELEASING.md) for the actual Changesets authority and
+topic-branch/version-PR workflow. The publish trigger depends on the merged
+`chore: version packages` subject; direct-main pushes are forbidden. Public setup
+and checks require no proprietary repository, private handbook or staff MCP.
 
 ## Rules
 
@@ -24,4 +27,7 @@ Read [RELEASING.md](./RELEASING.md). Flow matches proprietary `orbit-frontend`: 
 
 ## Future triggers (agents)
 
-Read workspace root [`FUTURE-TRIGGERS.md`](../../FUTURE-TRIGGERS.md) (Manova folder — canonical). Public stub: [FUTURE-TRIGGERS.md](./FUTURE-TRIGGERS.md). Notify user when triggers fire; remind only unless asked.
+Use repository-local [FUTURE-TRIGGERS.md](./FUTURE-TRIGGERS.md) as the
+standalone public agent authority. Staff working in Manova may additionally
+consult the workspace root overlay when available; it is not a public setup or
+check prerequisite. Notify the user when a trigger fires; remind only unless asked.

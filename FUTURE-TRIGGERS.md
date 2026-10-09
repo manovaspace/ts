@@ -1,6 +1,10 @@
 # Future triggers
 
-Stub for the public `manovaspace/ts` repo. **Canonical table:** Manova workspace [`handbook/FUTURE-TRIGGERS.md`](../../handbook/FUTURE-TRIGGERS.md) (agents read that file).
+This table is the standalone public `manovaspace/ts` trigger guide. Staff working
+in Manova may additionally consult the workspace root `FUTURE-TRIGGERS.md` when
+available; that private overlay is optional and requires no public contributor
+action. Verify current source/release evidence before treating a recorded status
+as implementation or deployment readiness.
 
 Status values: `deferred` | `fired` | `scaffolded` | `done`.
 
