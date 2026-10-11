@@ -96,7 +96,7 @@ npm trust list @manovaspace/tsconfig
 
 ## GitHub Releases
 
-Creating a GitHub Release can also trigger publish. Day-to-day releases only need the version commit on `main`.
+Creating a GitHub Release does not trigger npm publishing. The workflow publishes only when a `main` push has no remaining changesets and its commit subject is exactly `chore: version packages`.
 
 ## Checklist
 
