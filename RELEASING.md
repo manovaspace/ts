@@ -25,6 +25,8 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 ## Routine release
 
+**Automation status:** The release-PR workflow is a pilot on an unmerged branch. Keep its status Planned until it is merged to the repository's default branch, a scoped `RELEASE_TOKEN` is available, generated version-PR checks run unattended, and branch protection requires review and the normal CI checks. Record hosted evidence before marking the automation Active.
+
 ### 1. Merge pull requests that include changesets
 
 Every publishable change should include output from `bun run changeset` under `.changeset/`.
