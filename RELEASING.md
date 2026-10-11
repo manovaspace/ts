@@ -21,7 +21,7 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 ### Changelogs
 
-`bun run version-packages` updates each package’s `CHANGELOG.md`. Prefer meaningful releases over frequent empty patches.
+`bun run version-packages` updates package versions and `CHANGELOG.md` files, then runs `bun install --lockfile-only` to regenerate `bun.lock` for the new workspace versions. Prefer meaningful releases over frequent empty patches.
 
 ## Routine release
 
@@ -31,7 +31,7 @@ Every publishable change should include output from `bun run changeset` under `.
 
 ### 2. Review the version PR
 
-When changeset-bearing PRs reach `main`, the publish workflow creates or updates one `chore: version packages` PR for the combined pending changesets. It runs `bun run version-packages` to calculate versions and update changelogs. Review the affected package versions, dependency ranges, generated changelogs and lockfile in that PR. The version PR remains the review gate; the workflow does not publish while changesets are pending.
+When changeset-bearing PRs reach `main`, the publish workflow creates or updates one `chore: version packages` PR for the combined pending changesets. It runs `bun run version-packages` to calculate versions, update changelogs, and regenerate `bun.lock` with `bun install --lockfile-only`. Review the affected package versions, dependency ranges, generated changelogs and lockfile in that PR. The version PR remains the review gate; the workflow does not publish while changesets are pending.
 
 Merge the reviewed version PR after its required checks pass, using the exact title `chore: version packages` and squash merge so the main commit subject is also `chore: version packages`. Do not push version changes directly to `main`.
 

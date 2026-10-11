@@ -9,7 +9,7 @@
     "typecheck": "turbo typecheck",
     "test": "turbo test",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && bun install --lockfile-only",
     "release": "turbo build && changeset publish",
     "clean": "turbo clean && rm -rf node_modules"
   },
