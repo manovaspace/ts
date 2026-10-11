@@ -3,9 +3,6 @@ name: Publish
 on:
   push:
     branches: [main]
-  release:
-    types: [published]
-  workflow_dispatch:
 
 concurrency:
   group: publish-${{ github.repository }}-${{ github.ref }}
@@ -18,14 +15,11 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: >-
-      github.repository_owner == 'manovaspace' && (
-        github.event_name == 'workflow_dispatch' ||
-        github.event_name == 'release' ||
-        (github.event_name == 'push' && contains(github.event.head_commit.message, 'chore: version packages'))
-      )
+    if: github.repository == 'manovaspace/ts'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: "1.4.0"
@@ -35,7 +29,27 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm install -g npm@latest
       - run: bun install --frozen-lockfile
-      - name: Publish
+      - name: Require release PR token
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          if [[ -z "$RELEASE_TOKEN" ]]; then
+            echo "::error::Actions secret RELEASE_TOKEN must be available to create/update the reviewed version PR and trigger its checks. See RELEASING.md."
+            exit 1
+          fi
+      - name: Create or update version PR, then publish after merge
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0; compatible with @changesets/cli v2
+        with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
+          version: bun run version-packages
+          publish: |
+            if [ "$(git log -1 --format=%s)" = "chore: version packages" ]; then
+              bun run release
+            else
+              echo "Skipping publish: latest main commit is not the reviewed version PR merge."
+            fi
+          commit: chore: version packages
+          title: chore: version packages
         env:
           NPM_CONFIG_PROVENANCE: "true"
           # Optional: set repo secret NPM_TOKEN for first publish of a *new* package name
