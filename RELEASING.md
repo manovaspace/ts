@@ -41,11 +41,11 @@ After a maintainer reviews the generated versions, changelogs, dependency ranges
 
 Make an Actions secret named `RELEASE_TOKEN` available to this repository before enabling unattended releases. Use a dedicated fine-grained personal access token limited to `manovaspace/ts` with **Contents: read and write** and **Pull requests: read and write**. The workflow fails with an explicit error if this secret is unavailable; it does not fall back to `GITHUB_TOKEN`.
 
-GitHub Actions events created with `GITHUB_TOKEN` can leave pull request checks in an approval-required state, so they are unsuitable when required checks must run unattended. `RELEASE_TOKEN` makes the version PR open/update events run checks as the token owner. Keep the workflow's `GITHUB_TOKEN` permissions read-only for repository contents; npm publishing uses OIDC and provenance instead.
+GitHub Actions events created with `GITHUB_TOKEN` can leave pull request checks in an approval-required state, so they are unsuitable when required checks must run unattended. `RELEASE_TOKEN` makes the version PR open/update events run checks as the token owner. The workflow uses `GITHUB_TOKEN` only to read pull requests and check runs when validating the merged release PR; it cannot write repository contents or pull requests. npm publishing uses OIDC and provenance instead.
 
 ### 4. Publish after merge
 
-After the version PR merges to `main`, the same workflow builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger, and it invokes `bun run release` only when the pushed commit subject is exactly `chore: version packages`. It does not calculate another version bump. Use that exact squash-merge title and let the workflow complete before starting another release.
+After the version PR merges to `main`, the same workflow builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main` titled `chore: version packages`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Use that exact squash-merge title and let the workflow complete before starting another release.
 Publishing changes npm; it does not deploy consumers.
 
 Manual fallback:
