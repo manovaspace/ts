@@ -25,7 +25,7 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 ## Routine release
 
-**Automation status:** The release-PR workflow is a pilot on an unmerged branch. Keep its status Planned until it is merged to the repository's default branch, a scoped `RELEASE_TOKEN` is available, generated version-PR checks run unattended, and branch protection requires review and the normal CI checks. Record hosted evidence before marking the automation Active.
+**Automation status:** The release-PR workflow is a pilot on an unmerged branch. Keep its status Planned until it is merged to the repository's default branch, a scoped `RELEASE_TOKEN` is available, generated version-PR checks run unattended, and hosted evidence is recorded. A maintainer must review the generated version PR and confirm its checks pass before merging. Branch protection is recommended where the repository plan supports it, but is not required for Active status; lack of enforcement must not bypass the human review step.
 
 ### 1. Merge pull requests that include changesets
 
@@ -35,7 +35,7 @@ Every publishable change should include output from `bun run changeset` under `.
 
 When changeset-bearing PRs reach `main`, the publish workflow creates or updates one `chore: version packages` PR for the combined pending changesets. It runs `bun run version-packages` to calculate versions, update changelogs, and regenerate `bun.lock` with `bun install --lockfile-only`. Review the affected package versions, dependency ranges, generated changelogs and lockfile in that PR. The version PR remains the review gate; the workflow does not publish while changesets are pending.
 
-Merge the reviewed version PR after its required checks pass, using the exact title `chore: version packages` and squash merge so the main commit subject is also `chore: version packages`. Do not push version changes directly to `main`.
+After a maintainer reviews the generated versions, changelogs, dependency ranges, and lockfile and confirms its checks pass, merge the version PR using the exact title `chore: version packages` and squash merge so the main commit subject is also `chore: version packages`. Branch protection may enforce these checks when available; the human review and passing-check requirements apply even when the host cannot enforce them. Do not push version changes directly to `main`.
 
 ### 3. Configure the release PR token
 
