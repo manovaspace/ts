@@ -74,7 +74,12 @@ jobs:
           pr_author="$(jq -r '.user.login' <<< "$version_pr")"
           reviews="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$pr_number/reviews?per_page=100")"
           if ! jq -e --arg head "$pr_head_sha" --arg author "$pr_author" '
-            flatten | any(.[]; .state == "APPROVED" and .commit_id == $head and .user.login != $author and .user.type != "Bot")
+            flatten |
+            map(select(.commit_id == $head and .user.login != $author and .user.type != "Bot")) |
+            sort_by(.user.login, .submitted_at, .id) |
+            group_by(.user.login) |
+            map(.[-1]) |
+            any(.[]; .state == "APPROVED")
           ' <<< "$reviews" >/dev/null; then
             echo "::error::The merged version PR needs a human approval on its latest commit."
             exit 1
