@@ -9,8 +9,10 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
+  checks: read
   id-token: write
   contents: read
+  pull-requests: read
 
 jobs:
   publish:
@@ -48,6 +50,50 @@ jobs:
           version: bun run version-packages
           commit: chore: version packages
           title: chore: version packages
+      - name: Verify reviewed version PR
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.pushed_commit.outputs.subject == 'chore: version packages'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          associated_prs="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls?per_page=100")"
+          version_pr="$(jq -cer --arg sha "$GITHUB_SHA" '
+            [flatten[] | select(
+              .merged_at != null and
+              .merge_commit_sha == $sha and
+              .base.ref == "main" and
+              .head.ref == "changeset-release/main" and
+              .title == "chore: version packages"
+            )] |
+            if length == 1 then .[0] else error("expected exactly one associated merged version PR") end
+          ' <<< "$associated_prs")"
+
+          pr_number="$(jq -r '.number' <<< "$version_pr")"
+          pr_head_sha="$(jq -r '.head.sha' <<< "$version_pr")"
+          pr_author="$(jq -r '.user.login' <<< "$version_pr")"
+          reviews="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$pr_number/reviews?per_page=100")"
+          if ! jq -e --arg head "$pr_head_sha" --arg author "$pr_author" '
+            flatten | any(.[]; .state == "APPROVED" and .commit_id == $head and .user.login != $author and .user.type != "Bot")
+          ' <<< "$reviews" >/dev/null; then
+            echo "::error::The merged version PR needs a human approval on its latest commit."
+            exit 1
+          fi
+
+          check_run_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/commits/$pr_head_sha/check-runs?per_page=100")"
+          if ! jq -e '
+            ([.[].check_runs[]]) as $runs |
+            ([.[].total_count] | max) as $total_count |
+            ($runs | sort_by(.name, .started_at) | group_by(.name) | map(.[-1])) as $latest |
+            ($runs | length == $total_count) and
+            ($latest | length > 0) and
+            all($latest[]; .status == "completed" and .conclusion == "success") and
+            any($latest[]; .name == "ci") and
+            any($latest[]; .name == "analyze")
+          ' <<< "$check_run_pages" >/dev/null; then
+            echo "::error::The merged version PR must have successful CI and CodeQL checks on its latest commit."
+            exit 1
+          fi
       - name: Publish reviewed versions
         if: steps.changesets.outputs.hasChangesets == 'false' && steps.pushed_commit.outputs.subject == 'chore: version packages'
         run: bun run release
