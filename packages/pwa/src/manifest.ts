@@ -17,11 +17,12 @@ export function defineWebAppManifest(
     orientation: config.orientation,
     theme_color: colors.themeColor,
     background_color: colors.backgroundColor,
-    icons: config.icons.map((icon) => ({
-      src: icon.src,
-      sizes: icon.sizes,
-      type: icon.type ?? "image/png",
-      purpose: icon.purpose,
-    })),
+    icons:
+      config.icons?.map((icon) => ({
+        src: icon.src,
+        sizes: icon.sizes,
+        type: icon.type ?? "image/png",
+        purpose: icon.purpose,
+      })) ?? [],
   };
 }
