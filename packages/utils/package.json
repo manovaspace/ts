@@ -1,0 +1,54 @@
+{
+  "name": "@manovaspace/utils",
+  "version": "0.1.0",
+  "description": "Standard utility functions for Manova: Persian/Arabic digits, Toman formatting, phone normalization",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "utilities",
+    "persian-digits",
+    "toman",
+    "iran-mobile",
+    "manova"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/utils"
+  },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/utils/",
+  "scripts": {
+    "prepublishOnly": "bun ../../scripts/assert-publishable-deps.mjs",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@manovaspace/build": "workspace:*",
+    "@manovaspace/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

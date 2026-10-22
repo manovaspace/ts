@@ -11,7 +11,7 @@ export type WebAppManifestConfig = {
   name: string;
   shortName?: string;
   description?: string;
-  icons: PwaIcon[];
+  icons?: PwaIcon[];
   startUrl?: string;
   display?: "fullscreen" | "standalone" | "minimal-ui" | "browser";
   orientation?:

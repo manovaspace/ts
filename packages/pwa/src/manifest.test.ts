@@ -48,4 +48,12 @@ describe("defineWebAppManifest", () => {
 
     expect(manifest.start_url).toBe("/en");
   });
+
+  it("handles missing icons defensively", () => {
+    const manifest = defineWebAppManifest({
+      name: "Test App",
+    });
+
+    expect(manifest.icons).toEqual([]);
+  });
 });

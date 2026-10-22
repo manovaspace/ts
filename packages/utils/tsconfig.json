@@ -1,0 +1,4 @@
+{
+  "extends": "@manovaspace/tsconfig/base.json",
+  "include": ["src"]
+}
