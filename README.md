@@ -8,13 +8,14 @@ Shared TypeScript utilities for Next.js and React applications. Published on npm
 
 ## Packages
 
-| Package | Description | Docs |
-| --- | --- | --- |
-| [`@manovaspace/tsconfig`](https://www.npmjs.com/package/@manovaspace/tsconfig) | Strict TypeScript presets for apps and libraries | [docs](https://manovaspace.github.io/docs/utilities/packages/tsconfig/) |
-| [`@manovaspace/build`](https://www.npmjs.com/package/@manovaspace/build) | Shared `tsup` build configurations (`defineLibraryConfig`, `defineReactLibraryConfig`, `defineUnbundledConfig`, `isTsupWatch`) | [docs](https://manovaspace.github.io/docs/utilities/packages/build/) |
-| [`@manovaspace/markdown`](https://www.npmjs.com/package/@manovaspace/markdown) | Lightweight GFM renderer for React | [docs](https://manovaspace.github.io/docs/utilities/packages/markdown/) |
-| [`@manovaspace/pwa`](https://www.npmjs.com/package/@manovaspace/pwa) | Serwist and web app manifest helpers for Next.js | [docs](https://manovaspace.github.io/docs/utilities/packages/pwa/) |
-| [`@manovaspace/observability`](https://www.npmjs.com/package/@manovaspace/observability) | Next.js instrumentation helpers for Sentry | [docs](https://manovaspace.github.io/docs/utilities/packages/observability/) |
+| Package                                                                                  | Description                                                                                                                    | Docs                                                                         |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| [`@manovaspace/tsconfig`](https://www.npmjs.com/package/@manovaspace/tsconfig)           | Strict TypeScript presets for apps and libraries                                                                               | [docs](https://manovaspace.github.io/docs/utilities/packages/tsconfig/)      |
+| [`@manovaspace/build`](https://www.npmjs.com/package/@manovaspace/build)                 | Shared `tsup` build configurations (`defineLibraryConfig`, `defineReactLibraryConfig`, `defineUnbundledConfig`, `isTsupWatch`) | [docs](https://manovaspace.github.io/docs/utilities/packages/build/)         |
+| [`@manovaspace/markdown`](https://www.npmjs.com/package/@manovaspace/markdown)           | Lightweight GFM renderer for React                                                                                             | [docs](https://manovaspace.github.io/docs/utilities/packages/markdown/)      |
+| [`@manovaspace/pwa`](https://www.npmjs.com/package/@manovaspace/pwa)                     | Serwist and web app manifest helpers for Next.js                                                                               | [docs](https://manovaspace.github.io/docs/utilities/packages/pwa/)           |
+| [`@manovaspace/observability`](https://www.npmjs.com/package/@manovaspace/observability) | Next.js instrumentation helpers for Sentry                                                                                     | [docs](https://manovaspace.github.io/docs/utilities/packages/observability/) |
+| [`@manovaspace/utils`](https://www.npmjs.com/package/@manovaspace/utils)                 | Persian/Arabic digits, Toman formatting, Iran mobile normalization                                                             | [docs](https://manovaspace.github.io/docs/utilities/packages/utils/)         |
 
 Related: design tokens and UI components live in [manovaspace/design-system](https://github.com/manovaspace/design-system).
 
