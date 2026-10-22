@@ -83,7 +83,6 @@ bun run build && bun run release
 ```
 
 **B. Automation token (CI)**
-
 1. Create an npm classic/granular token with publish rights on `@manovaspace/*`.
 2. `gh secret set NPM_TOKEN --repo manovaspace/ts`
 3. Merge the reviewed version PR with head subject `chore: version packages` (or dispatch Publish at an already-versioned reviewed commit). `NODE_AUTH_TOKEN` is wired in `publish.yml` for this case.

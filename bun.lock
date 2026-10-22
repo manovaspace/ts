@@ -97,6 +97,17 @@
       "name": "@manovaspace/tsconfig",
       "version": "0.1.2",
     },
+    "packages/utils": {
+      "name": "@manovaspace/utils",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@manovaspace/build": "workspace:*",
+        "@manovaspace/tsconfig": "workspace:*",
+        "tsup": "catalog:",
+        "typescript": "catalog:",
+        "vitest": "catalog:",
+      },
+    },
   },
   "trustedDependencies": [
     "esbuild",
@@ -302,6 +313,8 @@
     "@manovaspace/pwa": ["@manovaspace/pwa@workspace:packages/pwa"],
 
     "@manovaspace/tsconfig": ["@manovaspace/tsconfig@workspace:packages/tsconfig"],
+
+    "@manovaspace/utils": ["@manovaspace/utils@workspace:packages/utils"],
 
     "@manypkg/find-root": ["@manypkg/find-root@1.1.0", "", { "dependencies": { "@babel/runtime": "^7.5.5", "@types/node": "^12.7.1", "find-up": "^4.1.0", "fs-extra": "^8.1.0" } }, "sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA=="],
 
