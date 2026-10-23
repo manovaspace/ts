@@ -3,29 +3,28 @@ name: Publish
 on:
   push:
     branches: [main]
-  release:
-    types: [published]
-  workflow_dispatch:
 
 concurrency:
   group: publish-${{ github.repository }}-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
+  checks: read
   id-token: write
   contents: read
+  pull-requests: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: >-
-      github.repository_owner == 'manovaspace' && (
-        github.event_name == 'workflow_dispatch' ||
-        github.event_name == 'release' ||
-        (github.event_name == 'push' && contains(github.event.head_commit.message, 'chore: version packages'))
-      )
+    if: github.repository == 'manovaspace/ts'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - name: Read pushed commit subject
+        id: pushed_commit
+        run: echo "subject=$(git log -1 --format=%s)" >> "$GITHUB_OUTPUT"
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: "1.4.0"
@@ -35,10 +34,76 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm install -g npm@latest
       - run: bun install --frozen-lockfile
-      - name: Publish
+      - name: Require release PR token
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          if [[ -z "$RELEASE_TOKEN" ]]; then
+            echo "::error::Actions secret RELEASE_TOKEN must be available to create/update the reviewed version PR and trigger its checks. See RELEASING.md."
+            exit 1
+          fi
+      - name: Create or update version PR
+        id: changesets
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0; compatible with @changesets/cli v2
+        with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
+          version: bun run version-packages
+          commit: chore: version packages
+          title: chore: version packages
+      - name: Verify reviewed version PR
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.pushed_commit.outputs.subject == 'chore: version packages'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          associated_prs="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls?per_page=100")"
+          version_pr="$(jq -cer --arg sha "$GITHUB_SHA" '
+            [flatten[] | select(
+              .merged_at != null and
+              .merge_commit_sha == $sha and
+              .base.ref == "main" and
+              .head.ref == "changeset-release/main" and
+              .title == "chore: version packages"
+            )] |
+            if length == 1 then .[0] else error("expected exactly one associated merged version PR") end
+          ' <<< "$associated_prs")"
+
+          pr_number="$(jq -r '.number' <<< "$version_pr")"
+          pr_head_sha="$(jq -r '.head.sha' <<< "$version_pr")"
+          pr_author="$(jq -r '.user.login' <<< "$version_pr")"
+          reviews="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$pr_number/reviews?per_page=100")"
+          if ! jq -e --arg head "$pr_head_sha" --arg author "$pr_author" '
+            flatten |
+            map(select(.commit_id == $head and .user.login != $author and .user.type != "Bot")) |
+            sort_by(.user.login, .submitted_at, .id) |
+            group_by(.user.login) |
+            map(.[-1]) |
+            any(.[]; .state == "APPROVED")
+          ' <<< "$reviews" >/dev/null; then
+            echo "::error::The merged version PR needs a human approval on its latest commit."
+            exit 1
+          fi
+
+          check_run_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/commits/$pr_head_sha/check-runs?per_page=100")"
+          if ! jq -e '
+            ([.[].check_runs[]]) as $runs |
+            ([.[].total_count] | max) as $total_count |
+            ($runs | sort_by(.name, .started_at) | group_by(.name) | map(.[-1])) as $latest |
+            ($runs | length == $total_count) and
+            ($latest | length > 0) and
+            all($latest[]; .status == "completed" and .conclusion == "success") and
+            any($latest[]; .name == "ci") and
+            any($latest[]; .name == "analyze")
+          ' <<< "$check_run_pages" >/dev/null; then
+            echo "::error::The merged version PR must have successful CI and CodeQL checks on its latest commit."
+            exit 1
+          fi
+      - name: Publish reviewed versions
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.pushed_commit.outputs.subject == 'chore: version packages'
+        run: bun run release
         env:
           NPM_CONFIG_PROVENANCE: "true"
           # Optional: set repo secret NPM_TOKEN for first publish of a *new* package name
           # (OIDC trusted publishing cannot create brand-new packages). Remove after trust is configured.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bun run release

@@ -21,44 +21,39 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 ### Changelogs
 
-`bun run version-packages` updates each package’s `CHANGELOG.md`. Prefer meaningful releases over frequent empty patches.
+`bun run version-packages` updates package versions and `CHANGELOG.md` files, then runs `bun install --lockfile-only` to regenerate `bun.lock` for the new workspace versions. Prefer meaningful releases over frequent empty patches.
 
 ## Routine release
+
+**Automation status:** The release-PR workflow is a pilot on an unmerged branch. Keep its status Planned until it is merged to the repository's default branch, a scoped `RELEASE_TOKEN` is available, generated version-PR checks run unattended, and hosted evidence is recorded. A maintainer must review the generated version PR and confirm its checks pass before merging. Branch protection is recommended where the repository plan supports it, but is not required for Active status; lack of enforcement must not bypass the human review step.
 
 ### 1. Merge pull requests that include changesets
 
 Every publishable change should include output from `bun run changeset` under `.changeset/`.
 
-### 2. Open a version PR
+### 2. Review the version PR
 
-Start a topic branch from the updated `main` after the package PRs merge:
+When changeset-bearing PRs reach `main`, the publish workflow creates or updates one `chore: version packages` PR for the combined pending changesets. It runs `bun run version-packages` to calculate versions, update changelogs, and regenerate `bun.lock` with `bun install --lockfile-only`. Review the affected package versions, dependency ranges, generated changelogs and lockfile in that PR. The version PR remains the review gate; the workflow does not publish while changesets are pending.
 
-```bash
-git switch -c chore/version-packages
-bun install --frozen-lockfile
-bun run version-packages
-```
+After a maintainer reviews the generated versions, changelogs, dependency ranges, and lockfile and confirms its checks pass, merge the version PR using the exact title `chore: version packages` and squash merge so the main commit subject is also `chore: version packages`. Branch protection may enforce these checks when available; the human review and passing-check requirements apply even when the host cannot enforce them. Do not push version changes directly to `main`.
 
-Review each affected package version, dependency range, generated changelog and
-lockfile. Stage only the reviewed release files, commit with
-`chore: version packages`, push the topic branch and open a PR. After CI passes,
-squash merge with the exact title `chore: version packages` and verify the merged
-head subject. Direct pushes to `main` are forbidden. If the intended versions
-have already been calculated and merged, verify that state before publishing;
-do not calculate a second bump.
+### 3. Configure the release PR token
 
-### 3. Publish
+Make an Actions secret named `RELEASE_TOKEN` available to this repository before enabling unattended releases. Use a dedicated fine-grained personal access token limited to `manovaspace/ts` with **Contents: read and write** and **Pull requests: read and write**. The workflow fails with an explicit error if this secret is unavailable; it does not fall back to `GITHUB_TOKEN`.
 
-[`.github/workflows/publish.yml`](./.github/workflows/publish.yml) publishes on a
-`main` push whose head message contains literal `chore: version packages`, a
-published GitHub Release, or a maintainer-selected `workflow_dispatch`.
-`chore(release): version packages` does not satisfy the main-push condition.
-The workflow builds and publishes existing manifest versions; it does not run
-`changeset version`. Release/dispatch and local fallback must use a reviewed,
-already-versioned commit and the complete intended unpublished package set.
+GitHub Actions events created with `GITHUB_TOKEN` can leave pull request checks in an approval-required state, so they are unsuitable when required checks must run unattended. `RELEASE_TOKEN` makes the version PR open/update events run checks as the token owner. The workflow uses `GITHUB_TOKEN` only to read pull requests and check runs when validating the merged release PR; it cannot write repository contents or pull requests. npm publishing uses OIDC and provenance instead.
+
+### 4. Publish after merge
+
+After the version PR merges to `main`, the same workflow builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main` titled `chore: version packages`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Use that exact squash-merge title and let the workflow complete before starting another release.
 Publishing changes npm; it does not deploy consumers.
 
 Manual fallback:
+
+Use this only to recover a failed publish after the reviewed version PR has
+merged and passed its required checks. It must not bypass the version PR review
+or calculate a second version. Publishing is an external release action; get
+maintainer approval for the specific publish before running the command.
 
 ```bash
 bun run build
@@ -86,8 +81,9 @@ bun run build && bun run release
 
 1. Create an npm classic/granular token with publish rights on `@manovaspace/*`.
 2. `gh secret set NPM_TOKEN --repo manovaspace/ts`
-3. Merge the reviewed version PR with head subject `chore: version packages` (or dispatch Publish at an already-versioned reviewed commit). `NODE_AUTH_TOKEN` is wired in `publish.yml` for this case.
-4. `./scripts/configure-trusted-publishing.sh` then remove `NPM_TOKEN` if you prefer OIDC-only afterwards.
+3. Set up `RELEASE_TOKEN` as described above so the workflow can create/update the reviewed version PR and its checks can run.
+4. Merge the reviewed version PR with head subject `chore: version packages`. `NODE_AUTH_TOKEN` is wired in `publish.yml` for this first-publish case.
+5. `./scripts/configure-trusted-publishing.sh` then remove `NPM_TOKEN` if you prefer OIDC-only afterwards.
 
 Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
 
@@ -102,7 +98,7 @@ npm trust list @manovaspace/tsconfig
 
 ## GitHub Releases
 
-Creating a GitHub Release can also trigger publish. Day-to-day releases only need the version commit on `main`.
+Creating a GitHub Release does not trigger npm publishing. The workflow publishes only when a `main` push has no remaining changesets and its commit subject is exactly `chore: version packages`.
 
 ## Checklist
 
