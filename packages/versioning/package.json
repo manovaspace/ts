@@ -1,0 +1,83 @@
+{
+  "name": "@manovaspace/versioning",
+  "version": "0.1.0",
+  "description": "Shared build identity and system diagnostic utilities for web applications",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "versioning",
+    "build-id",
+    "system-version",
+    "diagnostics",
+    "react",
+    "nextjs",
+    "manova"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manovaspace/ts.git",
+    "directory": "packages/versioning"
+  },
+  "bugs": {
+    "url": "https://github.com/manovaspace/ts/issues"
+  },
+  "homepage": "https://manovaspace.github.io/docs/utilities/packages/versioning/",
+  "scripts": {
+    "prepublishOnly": "bun ../../scripts/assert-publishable-deps.mjs",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js",
+      "require": "./dist/server/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@manovaspace/ui": "^0.3.0 || ^0.4.0 || ^0.5.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@hookform/resolvers": "^3.10.0",
+    "@manovaspace/build": "workspace:*",
+    "@manovaspace/tsconfig": "workspace:*",
+    "@manovaspace/ui": "^0.5.0",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-hook-form": "^7.54.2",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "^3.24.2"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
