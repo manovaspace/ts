@@ -25,7 +25,7 @@ Document the reason in the pull request if you enable lockstep. Otherwise prefer
 
 ## Routine release
 
-**Automation status:** The release-PR workflow is a pilot on an unmerged branch. Keep its status Planned until it is merged to the repository's default branch, a scoped `RELEASE_TOKEN` is available, generated version-PR checks run unattended, and hosted evidence is recorded. A maintainer must review the generated version PR and confirm its checks pass before merging. Branch protection is recommended where the repository plan supports it, but is not required for Active status; lack of enforcement must not bypass the human review step.
+**Automation status:** The release-PR workflow is a pilot on an unmerged branch. Keep its status Planned until it is merged to the repository's default branch, the release GitHub App is installed with its credentials set, generated version-PR checks run unattended, and hosted evidence is recorded. A maintainer must review the generated version PR and confirm its checks pass before merging. Branch protection is recommended where the repository plan supports it, but is not required for Active status; lack of enforcement must not bypass the human review step.
 
 ### 1. Merge pull requests that include changesets
 
@@ -35,17 +35,23 @@ Every publishable change should include output from `bun run changeset` under `.
 
 When changeset-bearing PRs reach `main`, the publish workflow creates or updates one `chore: version packages` PR for the combined pending changesets. It runs `bun run version-packages` to calculate versions, update changelogs, and regenerate `bun.lock` with `bun install --lockfile-only`. Review the affected package versions, dependency ranges, generated changelogs and lockfile in that PR. The version PR remains the review gate; the workflow does not publish while changesets are pending.
 
-After a maintainer reviews the generated versions, changelogs, dependency ranges, and lockfile and confirms its checks pass, merge the version PR using the exact title `chore: version packages` and squash merge so the main commit subject is also `chore: version packages`. Branch protection may enforce these checks when available; the human review and passing-check requirements apply even when the host cannot enforce them. Do not push version changes directly to `main`.
+After a maintainer reviews the generated versions, changelogs, dependency ranges, and lockfile and confirms its checks pass, merge the version PR (any merge method; do not retarget it). Publishing is keyed to the merged `changeset-release/main` PR, not the commit subject. Branch protection may enforce these checks when available; the human review and passing-check requirements apply even when the host cannot enforce them. Do not push version changes directly to `main`.
 
-### 3. Configure the release PR token
+### 3. Configure the release GitHub App
 
-Make an Actions secret named `RELEASE_TOKEN` available to this repository before enabling unattended releases. Use a dedicated fine-grained personal access token limited to `manovaspace/ts` with **Contents: read and write** and **Pull requests: read and write**. The workflow fails with an explicit error if this secret is unavailable; it does not fall back to `GITHUB_TOKEN`.
+The workflow creates the version PR with a short-lived GitHub App installation token. Before enabling unattended releases:
 
-GitHub Actions events created with `GITHUB_TOKEN` can leave pull request checks in an approval-required state, so they are unsuitable when required checks must run unattended. `RELEASE_TOKEN` makes the version PR open/update events run checks as the token owner. The workflow uses `GITHUB_TOKEN` only to read pull requests and check runs when validating the merged release PR; it cannot write repository contents or pull requests. npm publishing uses OIDC and provenance instead.
+1. Create a GitHub App owned by the `manovaspace` org with repository permissions **Contents: read and write** and **Pull requests: read and write**, and install it on `manovaspace/ts` only.
+2. Generate a private key for the app.
+3. Set the app's Client ID as the Actions variable `RELEASE_APP_CLIENT_ID` and the key as the Actions secret `RELEASE_APP_PRIVATE_KEY` on this repository.
+
+The workflow fails with an explicit error if either is missing; it does not fall back to `GITHUB_TOKEN`. Events created with `GITHUB_TOKEN` do not start new workflow runs, so the version PR would have no CI. App-token events do, so checks run unattended.
+
+The app, not a person, authors the version PR, so any maintainer with write access can approve it. The publish gate requires a non-bot approval from someone other than the PR author on the PR's latest commit. The workflow uses `GITHUB_TOKEN` only to read pull requests and check runs when validating the merged release PR; it cannot write repository contents or pull requests. npm publishing uses OIDC and provenance instead.
 
 ### 4. Publish after merge
 
-After the version PR merges to `main`, the same workflow builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main` titled `chore: version packages`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Use that exact squash-merge title and let the workflow complete before starting another release.
+After the version PR merges to `main`, the same workflow builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Let the workflow complete before starting another release.
 Publishing changes npm; it does not deploy consumers.
 
 Manual fallback:
@@ -81,8 +87,8 @@ bun run build && bun run release
 
 1. Create an npm classic/granular token with publish rights on `@manovaspace/*`.
 2. `gh secret set NPM_TOKEN --repo manovaspace/ts`
-3. Set up `RELEASE_TOKEN` as described above so the workflow can create/update the reviewed version PR and its checks can run.
-4. Merge the reviewed version PR with head subject `chore: version packages`. `NODE_AUTH_TOKEN` is wired in `publish.yml` for this first-publish case.
+3. Set up the release GitHub App as described above so the workflow can create/update the reviewed version PR and its checks can run.
+4. Merge the reviewed version PR. `NODE_AUTH_TOKEN` is wired in `publish.yml` for this first-publish case.
 5. `./scripts/configure-trusted-publishing.sh` then remove `NPM_TOKEN` if you prefer OIDC-only afterwards.
 
 Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
@@ -98,12 +104,12 @@ npm trust list @manovaspace/tsconfig
 
 ## GitHub Releases
 
-Creating a GitHub Release does not trigger npm publishing. The workflow publishes only when a `main` push has no remaining changesets and its commit subject is exactly `chore: version packages`.
+Creating a GitHub Release does not trigger npm publishing. The workflow publishes only when a `main` push has no remaining changesets and is the merge of a reviewed `changeset-release/main` version PR.
 
 ## Checklist
 
 - [ ] Changeset included in the pull request
 - [ ] Versions/changelogs calculated once and reviewed on a topic branch
-- [ ] Version PR passed CI and merged with head subject `chore: version packages`
+- [ ] Version PR passed CI and merged
 - [ ] CI publish succeeded
 - [ ] `npm view @manovaspace/<package> version` matches the release
