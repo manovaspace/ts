@@ -1,6 +1,6 @@
 {
   "name": "@manovaspace/utils",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Standard utility functions for Manova: Persian/Arabic digits, Toman formatting, phone normalization",
   "license": "MIT",
   "type": "module",

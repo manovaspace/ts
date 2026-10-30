@@ -1,5 +1,11 @@
 # @manovaspace/pwa
 
+## 1.0.5
+
+### Patch Changes
+
+- d4a2344: Handle missing icons defensively in `defineWebAppManifest`.
+
 ## 1.0.4
 
 ### Patch Changes
