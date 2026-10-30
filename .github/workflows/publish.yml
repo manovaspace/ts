@@ -98,6 +98,7 @@ jobs:
             echo "number=$(jq -r '.[0].number' <<< "$matches")"
             echo "head_sha=$(jq -r '.[0].head.sha' <<< "$matches")"
             echo "author=$(jq -r '.[0].user.login' <<< "$matches")"
+            echo "merged_by=$(jq -r '.[0].merged_by.login // ""' <<< "$matches")"
           } >> "$GITHUB_OUTPUT"
       - name: Verify reviewed version PR
         if: steps.version_pr.outputs.release == 'true' && steps.changesets.outputs.hasChangesets == 'false'
@@ -106,8 +107,18 @@ jobs:
           PR_NUMBER: ${{ steps.version_pr.outputs.number }}
           PR_HEAD_SHA: ${{ steps.version_pr.outputs.head_sha }}
           PR_AUTHOR: ${{ steps.version_pr.outputs.author }}
+          PR_MERGED_BY: ${{ steps.version_pr.outputs.merged_by }}
+          RELEASE_MODE: ${{ steps.release_token.outputs.mode }}
         run: |
           set -euo pipefail
+
+          # With a PAT the version PR is authored by the human who owns the token, so GitHub
+          # forbids a separate self-approval. The human merge is then the review: require it to
+          # come from the author. The App path (bot author) still needs a distinct approval.
+          if [[ "$RELEASE_MODE" == "token" && -n "$PR_MERGED_BY" && "$PR_MERGED_BY" == "$PR_AUTHOR" ]]; then
+            echo "Version PR #$PR_NUMBER was merged by its author ($PR_AUTHOR) under the PAT flow; treating the merge as the review."
+            exit 0
+          fi
 
           pr_number="$PR_NUMBER"
           pr_head_sha="$PR_HEAD_SHA"
