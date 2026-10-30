@@ -69,7 +69,7 @@
     },
     "packages/pwa": {
       "name": "@manovaspace/pwa",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "dependencies": {
         "@serwist/turbopack": "^9.5.11",
         "serwist": "^9.5.11",
@@ -99,7 +99,7 @@
     },
     "packages/utils": {
       "name": "@manovaspace/utils",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "devDependencies": {
         "@manovaspace/build": "workspace:*",
         "@manovaspace/tsconfig": "workspace:*",
@@ -111,7 +111,7 @@
     },
     "packages/versioning": {
       "name": "@manovaspace/versioning",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "devDependencies": {
         "@hookform/resolvers": "^3.10.0",
         "@manovaspace/build": "workspace:*",
