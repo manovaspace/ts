@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      version_commit:
+        description: "Merge commit of a version PR to publish (defaults to the pushed commit)"
+        required: false
+        type: string
 
 concurrency:
   group: publish-${{ github.repository }}-${{ github.ref }}
@@ -71,11 +76,12 @@ jobs:
         id: version_pr
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ inputs.version_commit || github.sha }}
         run: |
           set -euo pipefail
 
-          associated_prs="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls?per_page=100")"
-          matches="$(jq -c --arg sha "$GITHUB_SHA" '
+          associated_prs="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/commits/$RELEASE_SHA/pulls?per_page=100")"
+          matches="$(jq -c --arg sha "$RELEASE_SHA" '
             [flatten[] | select(
               .merged_at != null and
               .merge_commit_sha == $sha and
