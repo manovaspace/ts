@@ -51,7 +51,10 @@ The app, not a person, authors the version PR, so any maintainer with write acce
 
 ### 4. Publish after merge
 
-After the version PR merges to `main`, the same workflow builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Let the workflow complete before starting another release.
+The workflow is split into two jobs. The `version` job keeps running unattended on every push to `main`: it creates or updates the `chore: version packages` PR and, when a version PR has merged, verifies its review and checks. The `publish` job runs after the version PR merges and pauses until the owner approves the `npm-publish` GitHub environment; once approved it builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Let the workflow complete before starting another release.
+
+The workflow uses the npm bundled with Node 24 and never installs npm at run time. It fails below npm 11.5.1, the minimum trusted publishing needs.
+
 Publishing changes npm; it does not deploy consumers.
 
 Manual fallback:
@@ -71,7 +74,7 @@ npm accounts with `auth-and-writes` may prompt for browser confirmation during a
 ## First publish of a new package
 
 1. Prefer **`bun run release`** from the monorepo root so `catalog:` and `workspace:*` ranges resolve before publish.
-2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`).
+2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`, and environment `npm-publish`).
 
 New package names cannot be created by OIDC alone. Use one of:
 
