@@ -57,25 +57,25 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@manovaspace/ui": "^0.3.0 || ^0.4.0 || ^0.5.0",
+    "@manovaspace/ui": "^0.3.0 || ^0.4.0 || ^0.5.0 || ^0.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@hookform/resolvers": "^3.10.0",
+    "@hookform/resolvers": "^7.0.1",
     "@manovaspace/build": "workspace:*",
     "@manovaspace/tsconfig": "workspace:*",
-    "@manovaspace/ui": "^0.5.0",
+    "@manovaspace/ui": "^0.11.1",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "^7.54.2",
+    "react-hook-form": "^7.91.0",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:",
-    "zod": "^3.24.2"
+    "zod": "^4.6.7"
   },
   "engines": {
     "node": ">=24"
