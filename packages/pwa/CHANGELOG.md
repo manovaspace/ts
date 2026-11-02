@@ -1,5 +1,11 @@
 # @manovaspace/pwa
 
+## 1.0.6
+
+### Patch Changes
+
+- 10ddc2a: Raise the `next` peer dependency to `^16.4.3`, the version the apps run, and bump the workspace catalog to match.
+
 ## 1.0.5
 
 ### Patch Changes

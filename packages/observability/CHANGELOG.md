@@ -1,5 +1,11 @@
 # @manovaspace/observability
 
+## 0.1.5
+
+### Patch Changes
+
+- 10ddc2a: Raise the `next` peer dependency to `^16.4.3`, the version the apps run, and bump the workspace catalog to match.
+
 ## 0.1.4
 
 ### Patch Changes
