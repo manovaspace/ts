@@ -2,23 +2,50 @@
 # Configure npm trusted publishing (OIDC) for all @manovaspace/* packages.
 # Requires: npm 11.5.1+, logged in (npm whoami), 2FA browser approval when prompted.
 #
+# Packages are discovered from the workspace: every packages/*/package.json
+# whose "private" is not true, so new publishable packages are covered
+# automatically.
+#
 # Order for NEW package names:
 #   1. bun run build && bun run release   (first publish — 2FA in terminal)
 #   2. ./scripts/configure-trusted-publishing.sh
 #   3. CI publish.yml works for later releases
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REGISTRY="${NPM_REGISTRY:-https://registry.npmjs.org}"
 REPO="${TRUST_REPO:-manovaspace/ts}"
 WORKFLOW="${TRUST_WORKFLOW:-publish.yml}"
+ENVIRONMENT="${TRUST_ENVIRONMENT:-npm-publish}"
 
-PACKAGES=(
-  @manovaspace/tsconfig
-  @manovaspace/markdown
-  @manovaspace/pwa
-  @manovaspace/observability
-  @manovaspace/build
-)
+PACKAGES=()
+for manifest in "$ROOT"/packages/*/package.json; do
+  [[ -f "$manifest" ]] || continue
+  if [[ "$(node -p 'require(process.argv[1]).private === true' "$manifest")" != "true" ]]; then
+    PACKAGES+=("$(node -p 'require(process.argv[1]).name' "$manifest")")
+  fi
+done
+
+if ((${#PACKAGES[@]} > 0)); then
+  mapfile -t PACKAGES < <(printf '%s\n' "${PACKAGES[@]}" | sort)
+fi
+
+LIST_ONLY=0
+for arg in "$@"; do
+  case "$arg" in
+    --list) LIST_ONLY=1 ;;
+    *)
+      echo "Unknown option: $arg" >&2
+      echo "Usage: $0 [--list]" >&2
+      exit 2
+      ;;
+  esac
+done
+
+if ((LIST_ONLY)); then
+  printf '%s\n' "${PACKAGES[@]}"
+  exit 0
+fi
 
 has_trust() {
   npm trust list "$1" --registry="$REGISTRY" 2>/dev/null | grep -q "type: github"
@@ -45,6 +72,7 @@ trust_pkg() {
   if npm trust github "$pkg" \
     --file "$WORKFLOW" \
     --repo "$REPO" \
+    --environment "$ENVIRONMENT" \
     --allow-publish \
     --registry="$REGISTRY" \
     -y; then

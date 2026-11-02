@@ -74,7 +74,7 @@ npm accounts with `auth-and-writes` may prompt for browser confirmation during a
 ## First publish of a new package
 
 1. Prefer **`bun run release`** from the monorepo root so `catalog:` and `workspace:*` ranges resolve before publish.
-2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`, and environment `npm-publish`).
+2. Configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the package (GitHub org `manovaspace`, repo `ts`, workflow `publish.yml`, and environment `npm-publish`). The script discovers publishable packages from `packages/*/package.json` (skipping `private: true`) and configures each with that environment; set `TRUST_ENVIRONMENT` to override.
 
 New package names cannot be created by OIDC alone. Use one of:
 
@@ -94,7 +94,7 @@ bun run build && bun run release
 4. Merge the reviewed version PR. `NODE_AUTH_TOKEN` is wired in `publish.yml` for this first-publish case.
 5. `./scripts/configure-trusted-publishing.sh` then remove `NPM_TOKEN` if you prefer OIDC-only afterwards.
 
-Re-running the trust script is safe: it skips packages already configured and packages not yet on npm.
+Re-running the trust script is safe: it skips packages already configured and packages not yet on npm. Run `./scripts/configure-trusted-publishing.sh --list` to print the packages it covers without contacting npm.
 
 ## CI authentication
 
