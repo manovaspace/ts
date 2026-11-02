@@ -111,7 +111,7 @@
     },
     "packages/versioning": {
       "name": "@manovaspace/versioning",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "devDependencies": {
         "@hookform/resolvers": "^7.0.1",
         "@manovaspace/build": "workspace:*",
