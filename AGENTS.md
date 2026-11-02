@@ -32,6 +32,10 @@ and checks require no proprietary repository, private handbook or staff MCP.
 - No `Orbit` prefix in public export names
 - Each package versions **independently** via Changesets (no lockstep unless `fixed` group added with reason)
 
+## UI
+
+Before writing UI, read `packages/versioning/node_modules/@manovaspace/ui/dist/agents/index.md`.
+
 ## Future triggers (agents)
 
 Use repository-local [FUTURE-TRIGGERS.md](./FUTURE-TRIGGERS.md) as the

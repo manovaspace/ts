@@ -1,0 +1,20 @@
+[install]
+# Only install package versions published at least 3 days ago (`install.minimumReleaseAge`
+# is a number of seconds; `minimumReleaseAgeExcludes` is an array of package names).
+minimumReleaseAge = 259200
+minimumReleaseAgeExcludes = [
+  "@manovaspace/ui",
+  "@manovaspace/tokens",
+  "@manovaspace/devtools",
+  "@manovaspace/versioning",
+  "@manovaspace/utils",
+  "@manovaspace/pwa",
+  "@manovaspace/observability",
+  "@manovaspace/markdown",
+  # Exact versions required by @manovaspace/ui@1.0.0 that were published less than
+  # 3 days before this change. Only these builds are exempt; every other version of
+  # the package still goes through the age gate. Drop them once they age out.
+  "lucide-react@1.66.0",
+  "framer-motion@14.9.0",
+  "motion-dom@14.9.0",
+]
