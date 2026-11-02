@@ -15,11 +15,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
-    "@changesets/cli": "^2.29.5",
-    "turbo": "^2.5.4",
+    "@changesets/cli": "^3.0.3",
+    "turbo": "^2.11.10",
     "typescript": "catalog:"
   },
-  "packageManager": "bun@1.4.0",
+  "packageManager": "bun@1.4.4",
   "engines": {
     "node": ">=24"
   },
@@ -28,21 +28,21 @@
       "packages/*"
     ],
     "catalog": {
-      "react": "^19.2.7",
-      "react-dom": "^19.2.7",
+      "react": "19.3.1",
+      "react-dom": "19.3.1",
       "typescript": "^6.0.3",
-      "next": "^16.4.3",
-      "@types/react": "^19.2.17",
-      "@types/react-dom": "^19.2.3",
-      "@types/node": "^26.1.0",
-      "@biomejs/biome": "^2.5.2",
-      "tsup": "^8.5.1",
-      "vitest": "^3.2.6",
-      "@serwist/turbopack": "^9.5.11",
-      "serwist": "^9.5.11",
+      "next": "16.4.3",
+      "@types/react": "^19.3.0",
+      "@types/react-dom": "^19.3.0",
+      "@types/node": "^26.6.6",
+      "@biomejs/biome": "^2.6.4",
+      "tsup": "^9.0.0",
+      "vitest": "^5.0.5",
+      "@serwist/turbopack": "^9.5.13",
+      "serwist": "^9.5.13",
       "react-markdown": "^10.1.0",
       "remark-gfm": "^4.0.1",
-      "@sentry/nextjs": "^9.0.0"
+      "@sentry/nextjs": "^11.10.0"
     }
   },
   "trustedDependencies": [
