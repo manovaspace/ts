@@ -1,3 +1,10 @@
+---
+read_with:
+  - handbook/docs/orbit/decisions/014-proprietary-licensing-and-handoff.md
+  - handbook/docs/orbit/decisions/017-open-commons-tier.md
+  - handbook/docs/orbit/guides/open-commons.md
+---
+
 # manovaspace/ts — Agent Guide
 
 MIT open-commons monorepo. Packages publish to `registry.npmjs.org` as `@manovaspace/*`.
