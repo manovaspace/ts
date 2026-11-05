@@ -57,7 +57,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@manovaspace/ui": "^1.0.0",
+    "@manovaspace/ui": "^1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -65,7 +65,7 @@
     "@hookform/resolvers": "^7.0.1",
     "@manovaspace/build": "workspace:*",
     "@manovaspace/tsconfig": "workspace:*",
-    "@manovaspace/ui": "^1.0.0",
+    "@manovaspace/ui": "^1.2.0",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
