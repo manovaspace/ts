@@ -62,7 +62,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "next": "^16.4.3",
+    "next": "^16.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
