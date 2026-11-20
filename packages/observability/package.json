@@ -49,7 +49,7 @@
   },
   "peerDependencies": {
     "@sentry/nextjs": "^9.0.0 || ^10.0.0 || ^11.0.0",
-    "next": "^16.4.3"
+    "next": "^16.4.5"
   },
   "peerDependenciesMeta": {
     "@sentry/nextjs": {
