@@ -21,7 +21,7 @@ Related: design tokens and UI components live in [manovaspace/design-system](htt
 
 ## Requirements
 
-- Node.js 24 or newer (for developing this monorepo)
+- Node.js 26.13.1 or newer (for developing this monorepo)
 - bun run (recommended; npm and yarn also work for installing published packages)
 
 ## Development

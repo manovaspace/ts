@@ -53,7 +53,7 @@ The app, not a person, authors the version PR, so any maintainer with write acce
 
 The workflow is split into two jobs. The `version` job keeps running unattended on every push to `main`: it creates or updates the `chore: version packages` PR and, when a version PR has merged, verifies its review and checks. The `publish` job runs after the version PR merges and pauses until the owner approves the `npm-publish` GitHub environment; once approved it builds and publishes the already-reviewed manifest versions with `bun run release`. The workflow runs only on pushes to `main`; it has no GitHub Release or manual dispatch publish trigger. Before publishing, it verifies that the pushed commit is associated with exactly one merged Changesets PR from `changeset-release/main`, that a human approved the PR's latest commit, and that its latest CI and CodeQL checks succeeded. It does not calculate another version bump. Let the workflow complete before starting another release.
 
-The workflow uses the npm bundled with Node 24 and never installs npm at run time. It fails below npm 11.5.1, the minimum trusted publishing needs.
+The workflow uses the npm bundled with Node 26.13.1 and never installs npm at run time. It fails below npm 11.5.1, the minimum trusted publishing needs.
 
 Publishing changes npm; it does not deploy consumers.
 
